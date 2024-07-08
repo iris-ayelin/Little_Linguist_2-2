@@ -11,5 +11,7 @@ export const routes: Routes = [
     {path: "newcategory", component: CategoryFormComponent},
     {path: "dashboard", component: DashboardComponent},
     {path: "help", component: HelpComponent},
-    {path: "choose-game", component: ChooseGameComponent}
+    {path: "choose-game", component: ChooseGameComponent},
+    {path: "first-game", component: FirstGameCompenent},
+    {path: "second-game", component: SecondGameComponenet}
 ];

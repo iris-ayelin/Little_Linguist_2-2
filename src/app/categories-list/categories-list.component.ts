@@ -39,5 +39,3 @@ export class CategoriesListComponent implements OnInit {
       }});
   }
 }
-
-// My First Commit

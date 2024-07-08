@@ -15,3 +15,5 @@ export const routes: Routes = [
     {path: "first-game", component: FirstGameCompenent},
     {path: "second-game", component: SecondGameComponenet}
 ];
+
+//

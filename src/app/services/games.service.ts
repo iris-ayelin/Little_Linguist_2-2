@@ -5,6 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class GamesService {
   
-  games : games[] = ['Game1', 'Game2']
+  games : games[] = ['Match Words', 'Mixed Words']
 
 }

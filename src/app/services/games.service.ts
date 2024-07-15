@@ -5,9 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class GamesService {
   
-  private games : games[] = ['Match Words', 'Mixed Words']
+  private games : GameProfile[] = [new GameProfile(), new GameProfile()]
 
-  public get() : games[] {
-    return this.games
+  public get() : GameProfile[] {
+    return this.games;
   }
 }

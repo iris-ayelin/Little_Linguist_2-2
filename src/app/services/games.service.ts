@@ -4,9 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GamesService {
-
-  constructor() { 
-    let games : games[]
-  }
+  
+  games : games[] = ['Game1', 'Game2']
 
 }

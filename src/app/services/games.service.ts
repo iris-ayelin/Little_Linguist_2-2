@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class GamesServiceTsService {
+export class GamesService {
 
-  constructor() { }
+  constructor() { 
+    let games : games[]
+  }
 
 }

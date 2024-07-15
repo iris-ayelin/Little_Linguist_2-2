@@ -1,12 +1,4 @@
 export class GameProfile {
-    gameId = '';
-    gameName = '';
-    gameDiscription = '';
-    gameUrl = 'choose-game';
-    /* . . . */
-  }
-
-export class GameProfile {
 
     constructor(
         public gameId: string,

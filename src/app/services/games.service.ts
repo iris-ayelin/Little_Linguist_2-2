@@ -7,4 +7,7 @@ export class GamesService {
   
   private games : games[] = ['Match Words', 'Mixed Words']
 
+  public get() : games[] {
+    return this.games
+  }
 }

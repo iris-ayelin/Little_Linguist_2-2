@@ -7,8 +7,6 @@ export class GameProfile {
   }
 
 export class GameProfile {
-    lastUpdateDate = new Date();
-    words : TranslatedWord[] = [];
 
     constructor(
         public gameId: string,

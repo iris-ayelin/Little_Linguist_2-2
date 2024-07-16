@@ -4,13 +4,14 @@ import { GameProfile } from '../../shared/model/games';
 @Injectable({
   providedIn: 'root'
 })
+
 export class GamesService {
   
   private games : GameProfile[] = [new GameProfile()]
 
- 
-  public get() : GameProfile[] {
+  constructor() {}
+
+  public getGames() : GameProfile[] {
     return this.games;
   }
-  
 }

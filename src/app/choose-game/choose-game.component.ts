@@ -13,7 +13,7 @@ import { GamesService } from '../services/games.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class ChooseGameComponent {
+export class ChooseGameComponent implements OnInit {
   
   allGames : GameProfile[] = []
 

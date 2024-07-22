@@ -15,15 +15,14 @@ import { GamesService } from '../services/games.service';
 
 export class ChooseGameComponent {
   
-  //  ## Work in Progress
 
-  // constructor() {}
+  allGames : GameProfile[] = []
 
-  // getGames(){
-  //   this.GamesService.getGames();
-  //   console.log(this)
-  // }
+  constructor(private gamesService: GamesService) {}
 
-  //  ## Work in Progress
+  ngOnInit(): void{
+    this.allGames = this.gamesService.getGames();
+  }
+
  }
 

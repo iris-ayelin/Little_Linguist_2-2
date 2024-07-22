@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-first-game',
+  selector: 'app-mixed-words-game',
   standalone: true,
   imports: [
     CommonModule,
   ],
-  templateUrl: './first-game.component.html',
-  styleUrl: './first-game.component.css',
+  templateUrl: './mixed-words-game.component.html',
+  styleUrl: './mixed-words-game.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FirstGameComponent { }
+export class MixedLettersComponent { }

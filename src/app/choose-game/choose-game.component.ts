@@ -15,7 +15,6 @@ import { GamesService } from '../services/games.service';
 
 export class ChooseGameComponent {
   
-
   allGames : GameProfile[] = []
 
   constructor(private gamesService: GamesService) {}
@@ -23,6 +22,5 @@ export class ChooseGameComponent {
   ngOnInit(): void{
     this.allGames = this.gamesService.getGames();
   }
-
- }
+}
 

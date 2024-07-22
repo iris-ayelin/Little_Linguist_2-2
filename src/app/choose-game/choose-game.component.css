@@ -43,21 +43,3 @@ body {
   font-size: 28px;
   color: #333;
 }
-
-.mixed-letters {
-  background: linear-gradient(135deg, #f6d365, #fda085);
-  color: white;
-}
-
-.match-words {
-  background: linear-gradient(135deg, #84fab0, #8fd3f4);
-  color: white;
-}
-
-.mixed-letters .title {
-  color: #ff6347;
-}
-
-.match-words .title {
-  color: #4682b4;
-}

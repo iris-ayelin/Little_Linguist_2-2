@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div class="container">
-        <div class="game-card mixed-letters">
-            <div class="icon">🔤</div>
-            <div class="title">Mixed Letters</div>
-        </div>
-        <div class="game-card match-words">
-            <div class="icon">🔡</div>
-            <div class="title">Match Words</div>
-        </div>
+        <ul>
+            <li *ngFor="let g of allGames">
+                <div class="game-card">
+                    {{g.gameId}}
+                    {{g.gameName}}
+                    {{g.gameDiscription}}
+                </div>
+            </li>
+        </ul>
     </div>
-
-    <ul>
-        <li *ngFor="let g of allGames">
-            {{g.gameId}}
-            {{g.gameName}}
-            {{g.gameDiscription}}
-        </li>
-    </ul>
 </body>
+
 </html>

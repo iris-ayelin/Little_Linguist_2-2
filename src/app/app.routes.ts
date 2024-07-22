@@ -4,8 +4,8 @@ import { CategoryFormComponent } from './category-form/category-form.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HelpComponent } from './help/help.component';
 import { ChooseGameComponent } from './choose-game/choose-game.component';
-import { FirstGameComponent } from './mixed-letters-game/mixed-letters-game.component';
-import { SecondGameComponent } from './match-words-game/match-words-game.component';
+import { MixedLettersComponent } from './mixed-letters-game/mixed-letters-game.component';
+import { MatchWordsComponent } from './match-words-game/match-words-game.component';
 
 export const routes: Routes = [
     {path: "", component: CategoriesListComponent},

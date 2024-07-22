@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { GamesService } from '../services/games.service';
+import { GameProfile } from '../../shared/model/games';
 
 @Component({
   selector: 'app-choose-game',

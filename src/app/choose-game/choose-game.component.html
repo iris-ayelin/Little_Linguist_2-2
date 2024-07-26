@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +8,13 @@
 
 <body>
     <div class="container">
-        <ul>
+        <ul style="list-style-type: none;">
             <li *ngFor="let g of allGames">
                 <div class="game-card">
-                    {{g.gameId}}
-                    {{g.gameName}}
-                    {{g.gameDiscription}}
+                    <div class="game-card-header">
+                        <h3>{{ g.gameName }}</h3>
+                    </div>
+                    <p class="game-description">{{ g.gameDescription }}</p>
                 </div>
             </li>
         </ul>

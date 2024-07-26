@@ -10,7 +10,7 @@ import { ChooseGameComponent } from './choose-game/choose-game.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule, FooterComponent, HeaderComponent, DashboardComponent, HelpComponent, ChooseGameComponent],
+  imports: [CommonModule, RouterModule, FooterComponent, HeaderComponent, DashboardComponent, HelpComponent, ChooseGameComponent ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

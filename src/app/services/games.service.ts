@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import { GameProfile } from '../../shared/model/games';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class GamesService {
-  
   private games: GameProfile[] = [
     new GameProfile(
       '1',

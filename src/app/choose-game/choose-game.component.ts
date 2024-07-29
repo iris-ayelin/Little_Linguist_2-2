@@ -4,6 +4,9 @@ import { GamesService } from '../services/games.service';
 import { GameProfile } from '../../shared/model/games';
 import { MatDialog } from '@angular/material/dialog';
 import { GameDialogComponent } from '../game-dialog/game-dialog.component';
+import { CategoriesService } from '../services/categories.service';
+import { Category } from '../../shared/model/category';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-choose-game',
@@ -17,24 +20,31 @@ export class ChooseGameComponent implements OnInit {
   
   allGames: GameProfile[] = [];
   selectedGame: GameProfile | null = null;
+  categoryId: number = 0
+  //electedCategory: Category = null
 
-  constructor(private gamesService: GamesService, private dialog: MatDialog) {}
+  constructor(
+    private gamesService: GamesService, 
+    private dialog: MatDialog,
+    private categoriesService: CategoriesService,
+    ) {}
+  
+  
+  
 
   openDialog(): void {
     const dialogRef = this.dialog.open(GameDialogComponent, {
       width: '250px',
-      data: this.allGames,
+      data: this.selectedGame,
     });
+
     
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.selectedGame = result;
-        console.log('Selected category:', this.selectedGame);
-      }
-    });
   }
 
   ngOnInit(): void {
     this.allGames = this.gamesService.getGames();
   }
+
+
+  
 }

@@ -1,13 +1,43 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f8ff; /* Light blue background */
+  color: #333;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+  padding: 20px;
+  background: #ffffff; /* White background */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
 h1 {
-  font-size: 28px;
-  font-weight: bold;
   text-align: center;
+  color: #004080; /* Dark blue color */
   margin-bottom: 20px;
 }
 
 h4 {
-  font-size: 16px;
-  line-height: 1.5;
-  text-align: center;
-  margin-bottom: 20px;
+  line-height: 1.6;
+  color: #333333;
+}
+
+h4 strong {
+  color: #004080; /* Dark blue color */
+  font-size: 1.2em;
+}
+
+h4 em {
+  font-style: normal;
+  color: #007BFF; /* Bright blue color */
+}
+
+h4 br {
+  margin-bottom: 10px; /* Spacing between lines */
 }

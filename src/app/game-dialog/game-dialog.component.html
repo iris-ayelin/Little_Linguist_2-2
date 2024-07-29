@@ -1,8 +1,9 @@
 <div class="dialog-content">
-    <h2>Select a Category</h2>
-    <ul>
-      <li *ngFor="let category of categories">
-        {{ category.name }}
-      </li>
-    </ul>
-  </div>
+  <h2>Select a Category</h2>
+  <mat-form-field>
+    <select matNativeControl required>
+      <option *ngFor="let category of categories">{{ category.name }}</option>
+    </select>
+  </mat-form-field>
+  <button>Let's Play</button>
+</div>

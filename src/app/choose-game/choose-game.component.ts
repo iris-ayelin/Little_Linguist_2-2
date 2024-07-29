@@ -16,7 +16,7 @@ import { GameDialogComponent } from '../game-dialog/game-dialog.component';
 export class ChooseGameComponent implements OnInit {
   
   allGames: GameProfile[] = [];
-  selectedCategory: GameProfile | null = null;
+  selectedGame: GameProfile | null = null;
 
   constructor(private gamesService: GamesService, private dialog: MatDialog) {}
 
@@ -25,11 +25,11 @@ export class ChooseGameComponent implements OnInit {
       width: '250px',
       data: this.allGames,
     });
-
+    
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.selectedCategory = result;
-        console.log('Selected category:', this.selectedCategory);
+        this.selectedGame = result;
+        console.log('Selected category:', this.selectedGame);
       }
     });
   }

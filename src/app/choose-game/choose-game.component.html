@@ -5,20 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
 <body>
     <div class="container">
         <ul style="list-style-type: none;">
-            <li *ngFor="let g of allGames">
-                <div class="game-card">
-                    <div class="game-card-header">
-                        <h3>{{ g.gameName }}</h3>
-                    </div>
-                    <p class="game-description">{{ g.gameDescription }}</p>
-                </div>
-            </li>
+          <li *ngFor="let g of allGames">
+            <div class="game-card" (click)="openDialog()">
+              <div class="game-card-header">
+                <h3>{{ g.gameName }}</h3>
+              </div>
+              <p class="game-description">{{ g.gameDescription }}</p>
+            </div>
+          </li>
         </ul>
-    </div>
+      
+        <div *ngIf="selectedCategory">
+          <h2>Selected Category</h2>
+          <p>{{ selectedCategory.gameName }}: {{ selectedCategory.gameDescription }}</p>
+        </div>
+      </div>        
+      
 </body>
-
 </html>

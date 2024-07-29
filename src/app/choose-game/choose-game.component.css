@@ -29,11 +29,6 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.game-card:hover {
-  transform: scale(1.1);
-  box-shadow: 0 12px 15px rgba(0, 0, 0, 0.2);
-}
-
 .icon {
   font-size: 60px;
   margin-bottom: 20px;
@@ -42,4 +37,25 @@ body {
 .title {
   font-size: 28px;
   color: #333;
+}
+
+.game-card {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.game-card:hover {
+  background-color: #f0f0f0;
+}
+
+.game-card-header h3 {
+  margin: 0;
+}
+
+.game-description {
+  margin: 10px 0 0;
 }

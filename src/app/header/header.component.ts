@@ -17,4 +17,5 @@ import { RouterModule } from '@angular/router';
   styleUrl: './header.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent { }
+export class HeaderComponent {}
+

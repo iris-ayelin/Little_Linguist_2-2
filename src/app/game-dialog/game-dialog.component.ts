@@ -8,12 +8,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { MatOption } from '@angular/material/core';
+import { Router, RouterLink, RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-game-dialog',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule],
+  imports: [CommonModule, MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule, RouterLink],
   templateUrl: './game-dialog.component.html',
   styleUrls: ['./game-dialog.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,26 +22,21 @@ import { MatOption } from '@angular/material/core';
 export class GameDialogComponent implements OnInit {
 
   categories: Category[] = [];
+  selectedCategory?: Category;
 
   constructor(
-    public CategoriesService : CategoriesService,
+    public categoriesService: CategoriesService,
     public dialogRef: MatDialogRef<GameDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public selectedGame: GameProfile
-    ) {}
+    @Inject(MAT_DIALOG_DATA) public data: GameProfile
+
+  ) { }
 
   ngOnInit() {
-    this.categories = this.CategoriesService.list()
+    this.categories = this.categoriesService.list();
   }
 
-   
-  
-
-  //   @Inject(MAT_DIALOG_DATA) public data: { categories: Category[] }
-  // ) {
-  //   this.categories = data.categories;
-  // }
-
-  /*selectedGame(category: Category): void {
-    this.dialogRef.close(category);
-  }*/
+  letsPlay() {
+    this.dialogRef.close({ game: this.data, category: this.selectedCategory });
+    
+  }
 }

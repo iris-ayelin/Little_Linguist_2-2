@@ -10,13 +10,13 @@ export class GamesService {
       '1',
       'Mixed Letters',
       'reate a word from the preview mixed letters',
-      '/first-game'
+      '/mixed-letters-game'
     ),
     new GameProfile(
       '2',
       'Match Words Game',
       'Compare and match between the preview words',
-      '/second-game'
+      '/match-words-game'
     ),
   ];
 

@@ -4,27 +4,25 @@ import { GamesService } from '../services/games.service';
 import { GameProfile } from '../../shared/model/games';
 import { MatDialog } from '@angular/material/dialog';
 import { GameDialogComponent } from '../game-dialog/game-dialog.component';
-import { CategoriesService } from '../services/categories.service';
-import { Category } from '../../shared/model/category';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-choose-game',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatCardModule],
   templateUrl: './choose-game.component.html',
   styleUrls: ['./choose-game.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChooseGameComponent implements OnInit {
-  
   allGames: GameProfile[] = [];
-  selectedGame!: GameProfile; 
+  selectedGame!: GameProfile;
   categoryId: number = 0;
 
+
   constructor(
-    private gamesService: GamesService, 
-    private dialog: MatDialog,
-    private categoriesService: CategoriesService,
+    private gamesService: GamesService,
+    private dialog: MatDialog
   ) {}
 
   openDialog(game: GameProfile): void {
@@ -33,14 +31,6 @@ export class ChooseGameComponent implements OnInit {
     const dialogRef = this.dialog.open(GameDialogComponent, {
       width: '250px',
       data: this.selectedGame,
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log('Selected Game:', this.selectedGame.gameUrl);
-        console.log('Selected Category:', result.category.id);
-        
-      }
     });
   }
 

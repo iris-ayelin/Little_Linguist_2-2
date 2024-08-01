@@ -18,6 +18,15 @@ export class GamesService {
       'Compare and match between the preview words',
       '/match-words-game'
     ),
+
+    new GameProfile(
+      '3',
+      'Sorted Words Game',
+      'Arrange the jumbled words in the correct order to make',
+      '/sorted-words-game'
+    ),
+
+
   ];
 
   constructor() {}

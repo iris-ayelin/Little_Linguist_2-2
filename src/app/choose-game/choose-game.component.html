@@ -3,20 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Choose Game</title>
   </head>
   <body>
     <div class="container">
-      <ul style="list-style-type: none">
-        <li *ngFor="let g of allGames">
-          <div class="game-card" (click)="openDialog(g)">
-            <div class="game-card-header">
-              <h3>{{ g.gameName }}</h3>
-            </div>
-            <p class="game-description">{{ g.gameDescription }}</p>
-          </div>
-        </li>
-      </ul>
+      <div *ngFor="let game of allGames">
+        <mat-card class="game-card" (click)="openDialog(game)" >
+          <mat-card-header>
+            <mat-card-title>{{ game.gameName }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="game-description">{{ game.gameDescription }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
   </body>
 </html>

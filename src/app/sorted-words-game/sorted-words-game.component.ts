@@ -4,16 +4,16 @@ import { Category } from '../../shared/model/category';
 import { CategoriesService } from '../services/categories.service';
 
 @Component({
-  selector: 'app-word-sorter-game',
+  selector: 'app-sorted-words-game',
   standalone: true,
   imports: [
     CommonModule,
   ],
-  templateUrl: './word-sorter-game.component.html',
-  styleUrl: './word-sorter-game.component.css',
+  templateUrl: './sorted-words-game.component.html',
+  styleUrl: './sorted-words-game.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WordSorterGameComponent implements OnInit{ 
+export class SortedWordsGameComponent implements OnInit{ 
   dataSource : Category[] = [];
   @Input()
   id = ""; 

@@ -10,11 +10,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { GameDialogComponent } from './game-dialog/game-dialog.component';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule, FooterComponent, HeaderComponent, DashboardComponent, HelpComponent, ChooseGameComponent, GameDialogComponent, MatDialogModule, MatButtonModule, MatInputModule],
+  imports: [CommonModule, RouterModule, FooterComponent, HeaderComponent, DashboardComponent, HelpComponent, ChooseGameComponent, GameDialogComponent, MatDialogModule, MatButtonModule, MatInputModule, MatCardModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

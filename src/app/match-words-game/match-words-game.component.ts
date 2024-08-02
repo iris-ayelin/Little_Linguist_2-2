@@ -14,7 +14,6 @@ import { CategoriesService } from '../services/categories.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MatchWordsComponent implements OnInit { 
-  dataSource : Category[] = [];
   @Input()
   id = ""; 
   currentCategory?: Category;

@@ -4,7 +4,6 @@ import { TranslatedWord } from './translated-word';
 export class Category {
   lastUpdateDate = new Date();
   words: TranslatedWord[] = [];
-  wordCount: any;
 
   constructor(
     public id: number,

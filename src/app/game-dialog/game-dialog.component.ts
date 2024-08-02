@@ -31,7 +31,6 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameDialogComponent implements OnInit {
-  @Input()
   selectedCategory?: Category;
 
   categories: Category[] = [];

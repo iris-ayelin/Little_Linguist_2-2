@@ -12,8 +12,5 @@ import { GameProfile } from '../../shared/model/games';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameCardComponent {
-  openDialog(arg0: GameProfile) {
-    throw new Error('Method not implemented.');
-  }
   @Input() currentGame!: GameProfile;
 }

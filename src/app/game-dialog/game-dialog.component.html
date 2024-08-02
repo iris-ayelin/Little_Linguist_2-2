@@ -6,7 +6,7 @@
     </mat-select>
   </mat-form-field>
   <div *ngIf="selectedCategory">
-    <p>{{ selectedCategory.wordCount }} words</p>
+    <p>{{ selectedCategory.words.length }} words</p>
     <p>Last update: {{ selectedCategory.lastUpdateDate | date }}</p>
   </div>
   <button mat-button (click)="letsPlay()" [disabled]="!selectedCategory">Let's Play</button>

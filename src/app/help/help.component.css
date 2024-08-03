@@ -1,43 +1,48 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f0f8ff; /* Light blue background */
+  background-color: #e0f7fa;
   color: #333;
 }
 
 .container {
   width: 80%;
   margin: auto;
-  overflow: hidden;
   padding: 20px;
-  background: #ffffff; /* White background */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
   margin-top: 30px;
 }
 
 h1 {
   text-align: center;
-  color: #004080; /* Dark blue color */
+  color: #160064;
   margin-bottom: 20px;
 }
 
-h4 {
+.section {
+  margin-bottom: 20px;
+}
+
+.section h2 {
+  color: #0a4490;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.section h2 i {
+  margin-right: 8px;
+}
+
+.section p {
   line-height: 1.6;
-  color: #333333;
+  color: #555;
 }
 
-h4 strong {
-  color: #004080; /* Dark blue color */
-  font-size: 1.2em;
-}
-
-h4 em {
-  font-style: normal;
-  color: #007BFF; /* Bright blue color */
-}
-
-h4 br {
-  margin-bottom: 10px; /* Spacing between lines */
+.section strong {
+  color: #004d40;
+  font-size: 1.1em;
 }

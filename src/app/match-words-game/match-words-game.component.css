@@ -1,3 +1,9 @@
-:host {
-  display: block;
+.title-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.title {
+  font-size: 36px; 
+  font-weight: bold;
 }

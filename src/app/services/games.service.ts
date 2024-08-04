@@ -9,7 +9,7 @@ export class GamesService {
     new GameProfile(
       '1',
       'Mixed letters',
-      'reate a word from the preview mixed letters',
+      'Create a word from the preview mixed letters',
       '/mixed-letters-game'
     ),
     new GameProfile(

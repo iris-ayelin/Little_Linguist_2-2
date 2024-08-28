@@ -17,10 +17,10 @@ import { MatIconModule } from "@angular/material/icon";
 import { FormsModule } from "@angular/forms";
 import { ConfirmExitDialogComponent } from "../confirm-exit-dialog/confirm-exit-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
+import { ReturnAnswerDialogComponent } from "../return-answer-dialog/return-answer-dialog.component";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDividerModule } from "@angular/material/divider";
 import { GamesService } from "../services/games.service";
-import { ReturnAnswerDialogComponent } from "../return-answer-dialog/return-answer-dialog.component";
 
 
 @Component({
@@ -113,6 +113,7 @@ export class MixedLettersGameComponent implements OnInit {
       this.incorrectGuesses++;
     }
 
+    // Track the result
     this.wordResults.push({
       hebrewWord: currentWord.target,
       guessedWord: this.userGuess,
@@ -156,8 +157,15 @@ export class MixedLettersGameComponent implements OnInit {
   }
 
   navWithResultData(): void {
+    // Store the game results in the GamesService
+    this.gamesService.setResults(
+      this.wordResults,
+      this.correctGuesses,
+      this.incorrectGuesses,
+      this.coins
+    );
 
-
-    this.router.navigate([""]);
+    // Navigate to the results page without query params
+    this.router.navigate(["/mixed-letters-game-results"]);
   }
 }

@@ -1,13 +1,12 @@
 <mat-dialog-content>
-    <div class="dialog-content-wrapper">
-      <h2>{{ feedbackMessage }}</h2>
-      <div class="dialog-content">
-        <mat-icon *ngIf="isCorrect" class="success-icon">check_circle</mat-icon>
-        <mat-icon *ngIf="!isCorrect" class="error-icon">cancel</mat-icon>
-      </div>
+  <div class="dialog-content-wrapper">
+    <h2>{{ feedbackMessage }}</h2>
+    <div class="dialog-content">
+      <mat-icon *ngIf="isCorrect" class="success-icon">check_circle</mat-icon>
+      <mat-icon *ngIf="!isCorrect" class="error-icon">cancel</mat-icon>
     </div>
-  </mat-dialog-content>
-  <mat-dialog-actions>
-    <button mat-button (click)="onClose()">Continue</button>
-  </mat-dialog-actions>
-  
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onClose()">Continue</button>
+</mat-dialog-actions>

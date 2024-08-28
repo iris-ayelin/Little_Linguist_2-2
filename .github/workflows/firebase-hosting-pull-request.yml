@@ -17,5 +17,5 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_LITTLE_LINGUIST_2 }}
-          projectId: little-linguist-2
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_LITTEL_LINGUIST_2 }}
+          projectId: littel-linguist-2

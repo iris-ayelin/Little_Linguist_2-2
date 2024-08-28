@@ -1,0 +1,51 @@
+mat-dialog-container {
+  max-width: 90vw;
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.dialog-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.dialog-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 16px;
+  max-width: 100%; 
+}
+
+
+.success-icon {
+  color: #4caf50; /* Green for success */
+  font-size: 48px; 
+  padding-right: 25px;
+  padding-bottom: 25px;
+}
+
+.error-icon {
+  color: #f44336; /* Red for error */
+  font-size: 48px;
+  padding-right: 25px;
+  padding-bottom: 25px;
+}
+
+mat-dialog-content {
+  padding: 15px;
+  overflow: auto;
+}
+
+mat-dialog-actions {
+  padding: 5px;
+  text-align: center;
+}
+
+button {
+  margin: 0 auto;
+}

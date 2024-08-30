@@ -18,10 +18,18 @@
       <mat-card-content>
         <mat-form-field appearance="fill">
           <mat-label>Your Guess</mat-label>
-          <input matInput [(ngModel)]="userGuess" placeholder="Enter your guess">
+          <input
+            matInput
+            [(ngModel)]="userGuess"
+            name="guess"
+            placeholder="Enter your guess"
+            (ngModelChange)="validateEnglishLetters($event)"
+            [pattern]="pattern"
+          />
+          <mat-error *ngIf="!isValidGuess && userGuess">Please enter only English letters.</mat-error>
         </mat-form-field>
         <div class="button-group">
-          <button mat-mini-fab color="primary" [disabled]="!userGuess" (click)="checkGuess()">
+          <button mat-mini-fab color="primary" [disabled]="!userGuess || !isValidGuess" (click)="checkGuess()">
             <mat-icon aria-label="Check Guess">spellcheck</mat-icon>
           </button>
           <button mat-mini-fab (click)="resetForm()">
@@ -32,6 +40,7 @@
           </button>
         </div>
       </mat-card-content>
+
     </mat-card>
     
     <div class="progress-container" *ngIf="words.length > 0">

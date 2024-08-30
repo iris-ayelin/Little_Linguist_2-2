@@ -5,12 +5,34 @@ import { Category } from '../../shared/model/category';
   providedIn: 'root',
 })
 export class CategoriesService {
+  private categories: Category[] = [];
+
+  getAllCategories(): Category[] {
+    return this.categories;
+  }
+  
+  getRandomCategory(): Category {
+    const categories = this.list();
+
+    if (categories.length === 0) {
+      throw new Error('No categories available');
+    }
+
+    const randomIndex = Math.floor(Math.random() * categories.length);
+    return categories[randomIndex];
+  }
+
+  getAll(): Category[] {
+    throw new Error('Method not implemented.');
+  }
   private readonly CATEGORIES_KEY = 'categories';
   private readonly NEXT_ID_KEY = 'nextId';
 
   private getCategories(): Map<number, Category> {
     const categoriesString = localStorage.getItem(this.CATEGORIES_KEY);
-    return categoriesString ? new Map<number, Category>(JSON.parse(categoriesString)) : new Map<number, Category>();
+    return categoriesString
+      ? new Map<number, Category>(JSON.parse(categoriesString))
+      : new Map<number, Category>();
   }
 
   private getNextId(): number {
@@ -56,7 +78,10 @@ export class CategoriesService {
     this.setNextId(category.id + 1);
   }
 
-  getRandomWordsFromCategory(categoryId: number, count: number): { origin: string, target: string }[] {
+  getRandomWordsFromCategory(
+    categoryId: number,
+    count: number
+  ): { origin: string; target: string }[] {
     const category = this.get(categoryId);
     if (!category || category.words.length === 0) {
       return [];

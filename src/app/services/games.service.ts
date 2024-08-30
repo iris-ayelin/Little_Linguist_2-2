@@ -44,8 +44,12 @@ export class GamesService {
     return this.games;
   }
 
-  // New methods to manage results
-  public setResults(results: WordResult[], correctAnswers: number, incorrectAnswers: number, coins: number): void {
+  public setResults(
+    results: WordResult[],
+    correctAnswers: number,
+    incorrectAnswers: number,
+    coins: number
+  ): void {
     this.results = results;
     this.correctAnswers = correctAnswers;
     this.incorrectAnswers = incorrectAnswers;

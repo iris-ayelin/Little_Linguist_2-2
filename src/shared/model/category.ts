@@ -13,3 +13,5 @@ export class Category {
     
   ) {}
 }
+
+export { TranslatedWord };

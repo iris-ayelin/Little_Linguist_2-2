@@ -1,30 +1,29 @@
-import { CommonModule } from "@angular/common";
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   Input,
   OnInit,
   inject,
-} from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { CategoriesService } from "../services/categories.service";
-import { Category } from "../../shared/model/category";
-import { MatCardModule } from "@angular/material/card";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { MatProgressBarModule } from "@angular/material/progress-bar";
-import { MatIconModule } from "@angular/material/icon";
-import { FormsModule } from "@angular/forms";
-import { ConfirmExitDialogComponent } from "../confirm-exit-dialog/confirm-exit-dialog.component";
-import { MatDialog } from "@angular/material/dialog";
-import { ReturnAnswerDialogComponent } from "../return-answer-dialog/return-answer-dialog.component";
-import { MatButtonModule } from "@angular/material/button";
-import { MatDividerModule } from "@angular/material/divider";
-import { GamesService } from "../services/games.service";
-
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CategoriesService } from '../services/categories.service';
+import { Category } from '../../shared/model/category';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { ConfirmExitDialogComponent } from '../confirm-exit-dialog/confirm-exit-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ReturnAnswerDialogComponent } from '../return-answer-dialog/return-answer-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { GamesService } from '../services/games.service';
 
 @Component({
-  selector: "app-mixed-letters-game",
+  selector: 'app-mixed-letters-game',
   standalone: true,
   imports: [
     CommonModule,
@@ -36,43 +35,57 @@ import { GamesService } from "../services/games.service";
     FormsModule,
     MatButtonModule,
     MatDividerModule,
-    ConfirmExitDialogComponent, // Ensure these components are standalone or imported correctly.
-    ReturnAnswerDialogComponent
+    ConfirmExitDialogComponent,
+    ReturnAnswerDialogComponent,
   ],
-  templateUrl: "./mixed-letters-game.component.html",
-  styleUrls: ["./mixed-letters-game.component.css"],
+  templateUrl: './mixed-letters-game.component.html',
+  styleUrls: ['./mixed-letters-game.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MixedLettersGameComponent implements OnInit {
-  @Input() id = "";
+  @Input() id = '';
   currentCategory?: Category;
   words: { origin: string; target: string }[] = [];
   currentWordIndex = 0;
   originWord: string | null = null;
-  userGuess = "";
+  userGuess = '';
+  isValidGuess = true;
   coins = 0;
   correctGuesses = 0;
   incorrectGuesses = 0;
-  readonly confirmDialog = inject(MatDialog);
-  readonly answerDialog = inject(MatDialog);
-  readonly router = inject(Router);
-  readonly route = inject(ActivatedRoute);
-  readonly categoriesService = inject(CategoriesService);
-  readonly gamesService = inject(GamesService);
+  confirmDialog = inject(MatDialog);
+  answerDialog = inject(MatDialog);
+  router = inject(Router);
+  route = inject(ActivatedRoute);
+  categoriesService = inject(CategoriesService);
+  gamesService = inject(GamesService);
   isCorrect = false;
-  
-  // Track word results
-  wordResults: { hebrewWord: string; guessedWord: string; isCorrect: boolean }[] = [];
+
+  wordResults: {
+    hebrewWord: string;
+    guessedWord: string;
+    isCorrect: boolean;
+  }[] = [];
+
+  pattern = '^[a-zA-Z ]*$';
+  pointsPerWord?: number;
+  totalPoints?: number;
+  extraPoints?: number;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      const id = params.get("id");
+      const id = params.get('id');
       if (id) {
-        const categoryId = +id; // Ensure that id is a number
+        const categoryId = +id;
         this.currentCategory = this.categoriesService.get(categoryId);
 
         if (this.currentCategory) {
           this.words = this.currentCategory.words;
+
+          this.pointsPerWord = Math.floor(100 / this.words.length);
+          this.totalPoints = this.pointsPerWord
+
+          //this.extraPoints = this.totalPoints - 100;
           this.setNextWord();
         }
       }
@@ -82,52 +95,66 @@ export class MixedLettersGameComponent implements OnInit {
   private setNextWord(): void {
     if (this.currentWordIndex < this.words.length) {
       const currentWord = this.words[this.currentWordIndex];
-      this.originWord = this.scrambleWord(currentWord.origin);
+      let scrambledWord = this.scrambleWord(currentWord.origin);
+
+      if (scrambledWord === currentWord.origin) {
+        console.log("Scrambled word is the same as the original!");
+        scrambledWord = this.scrambleWord(currentWord.origin);
+      }
+
+      this.originWord = scrambledWord;
     } else {
       this.navWithResultData();
     }
   }
 
   private scrambleWord(word: string): string {
-    const scrambled = word.split("");
+    const scrambled = word.split('');
     for (let i = scrambled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [scrambled[i], scrambled[j]] = [scrambled[j], scrambled[i]];
     }
-    return scrambled.join("");
+    return scrambled.join('');
+  }
+
+  validateEnglishLetters(value: string): void {
+    this.isValidGuess = /^[a-zA-Z ]*$/.test(value);
   }
 
   checkGuess(): void {
-    const pointsPerWord = Math.floor(100 / this.words.length);
+    if (!this.isValidGuess) {
+      return;
+    }
+  
     const currentWord = this.words[this.currentWordIndex];
-    
-    if (
-      this.originWord &&
-      this.userGuess.toLowerCase() === currentWord.origin.toLowerCase()
-    ) {
-      this.isCorrect = true;
-      this.coins += pointsPerWord;
+    this.isCorrect = this.userGuess.toLowerCase() === currentWord.origin.toLowerCase();
+  
+    // Calculate points based on pointsPerWord (ensure it has a fallback value)
+    const pointsEarned = this.pointsPerWord || 0;
+  
+    if (this.isCorrect) {
+      this.coins += pointsEarned;
       this.correctGuesses++;
     } else {
-      this.isCorrect = false;
       this.incorrectGuesses++;
     }
-
+  
     // Track the result
     this.wordResults.push({
       hebrewWord: currentWord.target,
       guessedWord: this.userGuess,
       isCorrect: this.isCorrect,
     });
-
+  
     this.openAnswerDialog(this.isCorrect);
-    this.userGuess = "";
+    this.userGuess = '';
     this.currentWordIndex++;
     this.setNextWord();
   }
 
+
   resetForm(): void {
-    this.userGuess = "";
+    this.userGuess = '';
   }
 
   openConfirmDialog(): void {
@@ -136,15 +163,15 @@ export class MixedLettersGameComponent implements OnInit {
 
   openAnswerDialog(isCorrect: boolean): void {
     const dialogData = {
-      feedbackMessage: isCorrect ? "Correct!" : "Incorrect!",
+      feedbackMessage: isCorrect ? 'Correct!' : 'Incorrect!',
       isCorrect: isCorrect,
     };
 
     this.answerDialog.open(ReturnAnswerDialogComponent, {
       data: dialogData,
-      width: "80vw",
-      maxWidth: "350px",
-      height: "auto",
+      width: '80vw',
+      maxWidth: '350px',
+      height: 'auto',
     });
   }
 
@@ -157,7 +184,6 @@ export class MixedLettersGameComponent implements OnInit {
   }
 
   navWithResultData(): void {
-    // Store the game results in the GamesService
     this.gamesService.setResults(
       this.wordResults,
       this.correctGuesses,
@@ -165,7 +191,6 @@ export class MixedLettersGameComponent implements OnInit {
       this.coins
     );
 
-    // Navigate to the results page without query params
-    this.router.navigate(["/mixed-letters-game-results"]);
+    this.router.navigate(['/mixed-letters-game-results']);
   }
 }

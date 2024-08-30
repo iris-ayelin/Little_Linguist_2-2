@@ -8,6 +8,7 @@ import { MatchWordsComponent } from './match-words-game/match-words-game.compone
 import { MixedLettersGameComponent } from './mixed-letters-game/mixed-letters-game.component';
 import { SortedWordsGameComponent } from './sorted-words-game/sorted-words-game.component';
 import { MixedLettersGameResultsComponent } from './mixed-letters-game-results/mixed-letters-game-results.component';
+import { SortedWordsGameResultsComponent } from './sorted-words-game-results/sorted-words-game-results.component';
 
 
 export const routes: Routes = [
@@ -16,11 +17,13 @@ export const routes: Routes = [
     {path: "category/:id", component: CategoryFormComponent},
     {path: "newcategory", component: CategoryFormComponent},
     {path: "help", component: HelpComponent},
-    {path: "match-words-game/:id", component: MatchWordsComponent, },
+    {path: "match-words-game/:id", component: MatchWordsComponent,},
     {path: "mixed-letters-game/:id", component: MixedLettersGameComponent},
     {path: "sorted-words-game/:id", component: SortedWordsGameComponent },
     {path: "lets-play", component: ChooseGameComponent},
-    { path: 'mixed-letters-game-results', component: MixedLettersGameResultsComponent },
+    {path: "mixed-letters-game-results", component: MixedLettersGameResultsComponent},
+    {path: "sorted-words-game-results", component: SortedWordsGameResultsComponent},
+
 
 ];
 

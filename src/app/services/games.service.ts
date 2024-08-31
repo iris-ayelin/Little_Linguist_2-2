@@ -32,7 +32,6 @@ export class GamesService {
     ),
   ];
 
-  // New properties to store results
   private results: WordResult[] = [];
   private correctAnswers: number = 0;
   private incorrectAnswers: number = 0;

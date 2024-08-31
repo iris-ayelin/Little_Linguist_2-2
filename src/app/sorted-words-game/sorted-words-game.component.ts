@@ -59,7 +59,6 @@ export class SortedWordsGameComponent implements OnInit {
   readonly gamesService = inject(GamesService);
   isCorrect = false;
 
-  // Track word results
   wordResults: {
     hebrewWord: string;
     guessedWord: string; 
@@ -82,11 +81,9 @@ export class SortedWordsGameComponent implements OnInit {
         if (this.currentCategory) {
           this.words = this.currentCategory.words;
 
-          // Fetch a random category and select 3 words
           const randomCategory = this.categoriesService.getRandomCategory();
           const randomWords = this.getRandomWords(randomCategory, 6);
 
-          // Mix words from current and random categories
           this.mixedWords = this.shuffleWords([
             ...this.words.slice(0, 6),
             ...randomWords,
@@ -133,7 +130,7 @@ export class SortedWordsGameComponent implements OnInit {
   }
 
   private setNextWord(): void {
-    if (this.currentWordIndex < 6) {  // Limit to 6 words
+    if (this.currentWordIndex < 6) { 
       this.currentWord = this.mixedWords[this.currentWordIndex];
     } else {
       this.navToLetsPlay();
@@ -202,8 +199,8 @@ export class SortedWordsGameComponent implements OnInit {
   }
 
   private navToLetsPlay(): void {
-    this.closeDialogs(); // Close any open dialogs before navigating
-    this.router.navigate(['sorted-words-game-results']); // Navigate to the 'lets-play' page
+    this.closeDialogs();
+    this.router.navigate(['sorted-words-game-results']);
   }
 
   private closeDialogs(): void {

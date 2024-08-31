@@ -44,35 +44,30 @@
   color: red;
 }
 
-/* Container for the progress bar to add margin and center it */
 .progress-container {
   margin: 20px auto;
-  width: 80%; /* Adjust the width as needed */
+  width: 80%;
   text-align: center;
 }
 
-/* Style for the card header to position the coins container */
 .mat-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* Container for coins display aligned to the right */
 .coins-container-right {
   display: flex;
   align-items: center;
-  margin-left: auto; /* Pushes the container to the right */
+  margin-left: auto;
 }
 
-/* Style for the coin icon */
 .coin-icon {
-  font-size: 24px; /* Icon size */
-  color: gold; /* Coin color */
-  margin-right: 5px; /* Space between icon and count */
+  font-size: 24px; 
+  color: gold;
+  margin-right: 5px;
 }
 
-/* General styling (as before) */
 .progress-container {
   margin: 20px auto;
   width: 80%;

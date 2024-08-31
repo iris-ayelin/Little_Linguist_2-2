@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { GamesService } from '../services/games.service'; // Import the service
+import { GamesService } from '../services/games.service';
 
 interface WordResult {
   hebrewWord: string;
@@ -24,10 +24,9 @@ export class MixedLettersGameResultsComponent implements OnInit {
   displayedColumns: string[] = ['hebrewWord', 'guessedWord', 'status'];
   dataSource: WordResult[] = [];
 
-  constructor(private gamesService: GamesService) {} // Use the existing service
+  constructor(private gamesService: GamesService) {} 
 
   ngOnInit(): void {
-    // Retrieve game results from GamesService
     this.correctCount = this.gamesService.getCorrectAnswers();
     this.incorrectCount = this.gamesService.getIncorrectAnswers();
     this.coins = this.gamesService.getCoins();

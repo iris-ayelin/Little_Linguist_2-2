@@ -1,34 +1,30 @@
-.mat-dialog-container {
-  background-color: #f9f9f9;
+.dialog-content {
   padding: 20px;
+  max-width: 700px;
+  width: 80% auto;
+  text-align: center;
+  background-color: #f9f9f9;
   border-radius: 8px;
 }
 
-.mat-dialog-title {
-  font-size: 1.5em;
+.dialog-content h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
-.mat-dialog-content {
-  max-height: 400px;
-  overflow-y: auto;
+.category-select-field {
+  width: 100%;
+  margin-bottom: 20px;
 }
 
-.mat-dialog-actions {
+.category-details {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #555;
+}
+
+.dialog-actions {
+  margin-top: 30px;
   display: flex;
-  justify-content: flex-end;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  cursor: pointer;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-}
-
-li:hover {
-  background-color: #eee;
+  justify-content: center;
 }

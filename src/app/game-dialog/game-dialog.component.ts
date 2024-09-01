@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-game-dialog',
@@ -25,6 +26,7 @@ import { Router } from '@angular/router';
     MatSelectModule,
     MatInputModule,
     FormsModule,
+    MatButtonModule
   ],
   templateUrl: './game-dialog.component.html',
   styleUrls: ['./game-dialog.component.css'],

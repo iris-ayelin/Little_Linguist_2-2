@@ -43,22 +43,32 @@ import { GamesService } from '../services/games.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SortedWordsGameComponent implements OnInit {
+
+  // backend default paramerters
   @Input() id = '';
   words: { origin: string; target: string }[] = [];
   categories: Category[] = [];
   selectedCategory: any = [];
   shuffledWords: ({ origin: string; target: string} & { belongsToCurrent: boolean })[] = [];
+
+  //check answer parameters / game parameters
   currentWordIndex = 0;
   coins = 0;
   correctGuesses = 0;
   incorrectGuesses = 0;
+  isCorrect = false;
+  currentWord: { origin: string; target: string} & { belongsToCurrent: boolean } | undefined;
+  progressValue: number = 0;
+  userGuess?: string;
+
+  // injects
   readonly confirmDialog = inject(MatDialog);
   readonly answerDialog = inject(MatDialog);
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
   readonly gamesService = inject(GamesService);
-  isCorrect = false;
 
+  //game result parameters
   wordResults: {
     hebrewWord: string;
     guessedWord: string;
@@ -68,15 +78,14 @@ export class SortedWordsGameComponent implements OnInit {
     isCorrect: boolean;
   }[] = [];
 
-  currentWord: { origin: string; target: string} & { belongsToCurrent: boolean } | undefined;
-  progressValue: number = 0;
-  userGuess?: string;
-
   constructor(private categoriesService: CategoriesService) {}
 
   ngOnInit(): void {
+    // get page with id category
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
+
+      //set current selected and random category
       if (id) {
         const categoryId = +id;
         const categories = this.categoriesService.list();
@@ -92,10 +101,12 @@ export class SortedWordsGameComponent implements OnInit {
         const selectedGameWords = [...selectedCategoryWords, ...randomCategoryWords];
         this.shuffledWords = this.shuffleWords(selectedGameWords, selectedCategoryWords);
       }
+      // move to next word
       this.setNextWord();
     });
   }
 
+  // function to reorder the selected words
   private shuffleWords(
     words: { origin: string; target: string}[],
     categoryWords: { origin: string; target: string}[]
@@ -107,6 +118,7 @@ export class SortedWordsGameComponent implements OnInit {
     .sort(() => 0.5 - Math.random());
   }
 
+  // set new word after user submit answer
   private setNextWord(): void {
     if (this.currentWordIndex < 6) {
       this.currentWord = this.shuffledWords[this.currentWordIndex];
@@ -115,12 +127,11 @@ export class SortedWordsGameComponent implements OnInit {
     }
   }
 
+  // check user answer
   checkAnswer(userSaidYes: boolean): void {
     const pointsPerWord = Math.floor(100 / this.shuffleWords.length);
     if (!this.currentWord) return;
-
     const isCorrect = userSaidYes === this.currentWord.belongsToCurrent;
-
     this.wordResults.push({
       word: this.currentWord.origin,
       belongsToCurrent: this.currentWord.belongsToCurrent,
@@ -132,21 +143,15 @@ export class SortedWordsGameComponent implements OnInit {
 
     this.isCorrect = isCorrect;
 
-    if (isCorrect) {
+    if (isCorrect) { 
       this.coins += Math.round(100/6);
       this.correctGuesses++;
     } else {
       this.incorrectGuesses++;
     }
-
     this.openAnswerDialog(isCorrect);
-
     this.currentWordIndex++;
     this.setNextWord();
-  }
-
-  resetForm(): void {
-    this.userGuess = '';
   }
 
   openConfirmDialog(): void {

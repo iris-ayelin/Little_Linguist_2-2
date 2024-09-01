@@ -32,7 +32,7 @@
           <button mat-mini-fab color="primary" [disabled]="!userGuess || !isValidGuess" (click)="checkGuess()">
             <mat-icon aria-label="Check Guess">spellcheck</mat-icon>
           </button>
-          <button mat-mini-fab (click)="resetForm()">
+          <button mat-mini-fab [disabled]="!userGuess || !isValidGuess" (click)="resetForm()">
             <mat-icon aria-label="Reset Form">restore</mat-icon>
           </button>
           <button mat-mini-fab (click)="exitGame()">

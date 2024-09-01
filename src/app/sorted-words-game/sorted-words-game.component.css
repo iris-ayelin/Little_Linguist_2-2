@@ -1,58 +1,95 @@
-/* sorted-words-game.component.css */
 .game-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  margin: auto;
-  padding: 20px;
-  max-width: 400px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  min-height: 30vh;
+}
+
+.game-container h1 {
+  font-size: 32px;
+  color: #3f51b5;
+  margin-bottom: 20px;
 }
 
 .game-title {
-  font-size: 1.5rem;
-  margin: 10px 0;
-}
-
-.question-section {
-  margin: 20px 0;
-}
-
-.button-group {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 20px;
-}
-
-.progress-bar {
-  margin-top: 20px;
-  width: 100%;
-}
-
-.progress-container {
-  margin: 20px auto;
-  width: 80%;
-  text-align: center;
-}
-
-.custom-progress-bar {
-  height: 20px;
-  border-radius: 10px;
-  background-color: #f3f3f3;
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #555;
 }
 
 .coins-container-right {
   display: flex;
   align-items: center;
-  margin-left: auto; /* Pushes the container to the right */
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .coin-icon {
-  font-size: 24px; /* Icon size */
-  color: gold; /* Coin color */
-  margin-right: 5px; /* Space between icon and count */
+  font-size: 24px;
+  color: gold;
+}
+
+.coin-count {
+  font-size: 18px;
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+.question-section {
+  width: 100%; /* Ensures the question section takes the full width */
+}
+
+.question-section p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.button-group button {
+  width: 45%; /* Slightly wider buttons */
+}
+
+.progress-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.progress-info {
+  padding: 30px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.custom-progress-bar {
+  width: 100%;
+}
+
+.exit-button-container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+button[mat-mini-fab] {
+  background-color: #ff5722;
+  color: white;
 }

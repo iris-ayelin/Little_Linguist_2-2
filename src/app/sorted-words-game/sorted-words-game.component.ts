@@ -117,7 +117,6 @@ export class SortedWordsGameComponent implements OnInit {
 
   checkAnswer(userSaidYes: boolean): void {
     const pointsPerWord = Math.floor(100 / this.shuffleWords.length);
-    console.log(this.shuffleWords.length);
     if (!this.currentWord) return;
 
     const isCorrect = userSaidYes === this.currentWord.belongsToCurrent;
@@ -134,7 +133,7 @@ export class SortedWordsGameComponent implements OnInit {
     this.isCorrect = isCorrect;
 
     if (isCorrect) {
-      this.coins += pointsPerWord;
+      this.coins += Math.round(100/6);
       this.correctGuesses++;
     } else {
       this.incorrectGuesses++;
@@ -173,12 +172,12 @@ export class SortedWordsGameComponent implements OnInit {
   }
 
   get progress(): number {
-    return (this.currentWordIndex / this.words.length) * 100;
+    return (this.currentWordIndex / this.shuffledWords.length) * 100;
   }
 
   private navToLetsPlay(): void {
     this.closeDialogs();
-    this.router.navigate(['sorted-words-game-results']);
+    //this.router.navigate(['sorted-words-game-results']);
   }
 
   private closeDialogs(): void {

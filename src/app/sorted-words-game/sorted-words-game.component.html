@@ -19,15 +19,16 @@
       </button>
     </div>
   </div>
-  <div class="progress-container" *ngIf="words.length > 0">
+  <div class="progress-container" *ngIf="shuffledWords.length > 0">
     <div class="progress-info">
       <span class="current-word-number">{{ currentWordIndex + 1 }}</span>
-      <span class="total-words">/ {{ words.length }}</span>
+      <span class="total-words">/ {{ shuffledWords.length }}</span>
     </div>
-    <mat-progress-bar mode="determinate" [value]="progress" class="custom-progress-bar"
-    ></mat-progress-bar>
+    <mat-progress-bar mode="determinate" [value]="progress" class="custom-progress-bar"></mat-progress-bar>
   </div>
-  <button mat-mini-fab (click)="exitGame()">
-    <mat-icon aria-label="Exit Game">exit_to_app</mat-icon>
-  </button>
+  <div class="exit-button-container">
+    <button mat-mini-fab (click)="exitGame()">
+      <mat-icon aria-label="Exit Game">exit_to_app</mat-icon>
+    </button>
+  </div>
 </div>

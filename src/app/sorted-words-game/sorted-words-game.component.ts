@@ -1,3 +1,4 @@
+import { categories } from './../../shared/data/categories';
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -46,6 +47,7 @@ export class SortedWordsGameComponent implements OnInit {
   @Input() id = '';
   currentCategory?: Category;
   words: { origin: string; target: string }[] = [];
+  categories : Category[] = [];
   mixedWords: { word: string; belongsToCurrent: boolean }[] = [];
   currentWordIndex = 0;
   coins = 0;
@@ -55,7 +57,7 @@ export class SortedWordsGameComponent implements OnInit {
   readonly answerDialog = inject(MatDialog);
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
-  readonly categoriesService = inject(CategoriesService);
+  //readonly categoriesService = inject(CategoriesService);
   readonly gamesService = inject(GamesService);
   isCorrect = false;
 
@@ -71,43 +73,44 @@ export class SortedWordsGameComponent implements OnInit {
   progressValue: number = 0;
   userGuess?: string;
 
+  constructor(private categoriesService : CategoriesService){
+
+  }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id) {
         const categoryId = +id; 
         this.currentCategory = this.categoriesService.get(categoryId);
-
         if (this.currentCategory) {
           this.words = this.currentCategory.words;
 
           const randomCategory = this.categoriesService.getRandomCategory();
-          const randomWords = this.getRandomWords(randomCategory, 6);
+          const randomWords = this.getRandomWords(randomCategory, 3);
 
           this.mixedWords = this.shuffleWords([
-            ...this.words.slice(0, 6),
+            ...this.words.slice(0, 3),
             ...randomWords,
           ]);
-
+          if(categoryId){
+            this.categories = this.categoriesService.list();
+            this.categories.splice(categoryId-1, 1)
+            const secondRandomCategory = this.categoriesService.getRandomCategory();
+            const secondRandomWords = this.getRandomWords(secondRandomCategory, 3);
+            this.mixedWords = this.shuffleWords([
+              ...this.words.slice(0, 3),
+              ...secondRandomWords,
+            ]);
+            console.log(secondRandomCategory)
+            console.log(secondRandomWords)
+          }
           this.setNextWord();
         }
       }
     });
   }
 
-  private getRandomWordsFromCategory(
-    words: { origin: string; target: string }[],
-    count: number
-  ): { origin: string; target: string }[] {
-    const shuffledWords = [...words].sort(() => 0.5 - Math.random());
-    return shuffledWords.slice(0, count);
-  }
-
-  private getRandomElement<T>(array: T[]): T | undefined {
-    if (array.length === 0) return undefined;
-    const randomIndex = Math.floor(Math.random() * array.length);
-    return array[randomIndex];
-  }
 
   private getRandomWords(
     category: Category,
@@ -166,6 +169,10 @@ export class SortedWordsGameComponent implements OnInit {
 
     this.currentWordIndex++;
     this.setNextWord();
+  }
+
+  getCategories(): void {
+    this.categories = this.categoriesService.list()
   }
 
   resetForm(): void {

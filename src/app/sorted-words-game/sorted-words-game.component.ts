@@ -1,4 +1,3 @@
-import { categories } from './../../shared/data/categories';
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -45,10 +44,10 @@ import { GamesService } from '../services/games.service';
 })
 export class SortedWordsGameComponent implements OnInit {
   @Input() id = '';
-  currentCategory?: Category;
   words: { origin: string; target: string }[] = [];
-  categories : Category[] = [];
-  mixedWords: { word: string; belongsToCurrent: boolean }[] = [];
+  categories: Category[] = [];
+  selectedCategory: any = [];
+  shuffledWords: ({ origin: string; target: string} & { belongsToCurrent: boolean })[] = [];
   currentWordIndex = 0;
   coins = 0;
   correctGuesses = 0;
@@ -57,84 +56,60 @@ export class SortedWordsGameComponent implements OnInit {
   readonly answerDialog = inject(MatDialog);
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
-  //readonly categoriesService = inject(CategoriesService);
   readonly gamesService = inject(GamesService);
   isCorrect = false;
 
   wordResults: {
     hebrewWord: string;
-    guessedWord: string; 
+    guessedWord: string;
     word: string;
     belongsToCurrent: boolean;
     userSaidYes: boolean;
     isCorrect: boolean;
   }[] = [];
-  currentWord: { word: string; belongsToCurrent: boolean } | undefined;
+
+  currentWord: { origin: string; target: string} & { belongsToCurrent: boolean } | undefined;
   progressValue: number = 0;
   userGuess?: string;
 
-  constructor(private categoriesService : CategoriesService){
-
-  }
+  constructor(private categoriesService: CategoriesService) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id) {
-        const categoryId = +id; 
-        this.currentCategory = this.categoriesService.get(categoryId);
-        if (this.currentCategory) {
-          this.words = this.currentCategory.words;
-
-          const randomCategory = this.categoriesService.getRandomCategory();
-          const randomWords = this.getRandomWords(randomCategory, 3);
-
-          this.mixedWords = this.shuffleWords([
-            ...this.words.slice(0, 3),
-            ...randomWords,
-          ]);
-          if(categoryId){
-            this.categories = this.categoriesService.list();
-            this.categories.splice(categoryId-1, 1)
-            const secondRandomCategory = this.categoriesService.getRandomCategory();
-            const secondRandomWords = this.getRandomWords(secondRandomCategory, 3);
-            this.mixedWords = this.shuffleWords([
-              ...this.words.slice(0, 3),
-              ...secondRandomWords,
-            ]);
-            console.log(secondRandomCategory)
-            console.log(secondRandomWords)
-          }
-          this.setNextWord();
+        const categoryId = +id;
+        const categories = this.categoriesService.list();
+        this.selectedCategory = this.categoriesService.get(categoryId);
+        if (categories.length == categoryId) {
+          categories.splice(categoryId - 1, 1);
+        } else {
+          categories.splice(categoryId, 1);
         }
+        const selectedCategoryWords = this.categoriesService.getRandomWordsFromCategory(categoryId, 3);
+        const randomCategory = this.categoriesService.getRandomCategory(categories);
+        const randomCategoryWords = this.categoriesService.getRandomWordsFromCategory(randomCategory.id,3);
+        const selectedGameWords = [...selectedCategoryWords, ...randomCategoryWords];
+        this.shuffledWords = this.shuffleWords(selectedGameWords, selectedCategoryWords);
       }
+      this.setNextWord();
     });
   }
 
-
-  private getRandomWords(
-    category: Category,
-    count: number
-  ): { origin: string; target: string }[] {
-    if (!category || !category.words || category.words.length === 0) return [];
-    const shuffledWords = [...category.words].sort(() => 0.5 - Math.random());
-    return shuffledWords.slice(0, count);
-  }
-
   private shuffleWords(
-    words: { origin: string; target: string }[]
-  ): { word: string; belongsToCurrent: boolean }[] {
-    return words
-      .map((word) => ({
-        word: word.origin,
-        belongsToCurrent: this.words.some(w => w.origin === word.origin),
-      }))
-      .sort(() => 0.5 - Math.random());
+    words: { origin: string; target: string}[],
+    categoryWords: { origin: string; target: string}[]
+  ): ({ origin: string; target: string} & { belongsToCurrent: boolean })[] {
+    return words.map(word => ({
+      ...word,
+      belongsToCurrent: categoryWords.some(categoryWord => categoryWord.origin === word.origin)
+    }))
+    .sort(() => 0.5 - Math.random());
   }
 
   private setNextWord(): void {
-    if (this.currentWordIndex < 6) { 
-      this.currentWord = this.mixedWords[this.currentWordIndex];
+    if (this.currentWordIndex < 6) {
+      this.currentWord = this.shuffledWords[this.currentWordIndex];
     } else {
       this.navToLetsPlay();
     }
@@ -142,24 +117,24 @@ export class SortedWordsGameComponent implements OnInit {
 
   checkAnswer(userSaidYes: boolean): void {
     const pointsPerWord = Math.floor(100 / this.shuffleWords.length);
-    console.log(this.shuffleWords.length)
+    console.log(this.shuffleWords.length);
     if (!this.currentWord) return;
 
     const isCorrect = userSaidYes === this.currentWord.belongsToCurrent;
 
     this.wordResults.push({
-      word: this.currentWord.word,
+      word: this.currentWord.origin,
       belongsToCurrent: this.currentWord.belongsToCurrent,
       userSaidYes,
       isCorrect,
-      hebrewWord: '', 
-      guessedWord: '' 
+      hebrewWord: '',
+      guessedWord: '',
     });
 
     this.isCorrect = isCorrect;
 
     if (isCorrect) {
-      this.coins += pointsPerWord; 
+      this.coins += pointsPerWord;
       this.correctGuesses++;
     } else {
       this.incorrectGuesses++;
@@ -171,12 +146,8 @@ export class SortedWordsGameComponent implements OnInit {
     this.setNextWord();
   }
 
-  getCategories(): void {
-    this.categories = this.categoriesService.list()
-  }
-
   resetForm(): void {
-    this.userGuess = ''; 
+    this.userGuess = '';
   }
 
   openConfirmDialog(): void {
@@ -211,7 +182,7 @@ export class SortedWordsGameComponent implements OnInit {
   }
 
   private closeDialogs(): void {
-     this.confirmDialog.closeAll();
-     this.answerDialog.closeAll();
+    this.confirmDialog.closeAll();
+    this.answerDialog.closeAll();
   }
 }

@@ -1,14 +1,14 @@
 <div class="game-container">
   <h1>Little Linguist</h1>
-  <div class="game-title">Word sorter - {{ currentCategory?.name }}</div>
+  <div class="game-title">Word sorter - {{ selectedCategory?.name }}</div>
   <div class="coins-container-right">
     <mat-icon class="coin-icon">attach_money</mat-icon>
     <span class="coin-count">{{ coins }}</span>
   </div>
   <div class="question-section">
     <p>
-      Is word <strong>"{{ currentWord?.word }}"</strong> part of the
-      <strong>{{ currentCategory?.name }}</strong> category?
+      Is word <strong>"{{ currentWord?.origin }}"</strong> part of the
+      <strong>{{ selectedCategory?.name }}</strong> category?
     </p>
     <div class="button-group">
       <button mat-raised-button color="primary" (click)="checkAnswer(true)">
@@ -24,10 +24,7 @@
       <span class="current-word-number">{{ currentWordIndex + 1 }}</span>
       <span class="total-words">/ {{ words.length }}</span>
     </div>
-    <mat-progress-bar
-      mode="determinate"
-      [value]="progress"
-      class="custom-progress-bar"
+    <mat-progress-bar mode="determinate" [value]="progress" class="custom-progress-bar"
     ></mat-progress-bar>
   </div>
   <button mat-mini-fab (click)="exitGame()">

@@ -11,8 +11,8 @@ export class CategoriesService {
     return this.categories;
   }
   
-  getRandomCategory(): Category {
-    const categories = this.list();
+  getRandomCategory(categories : any): Category {
+    this.categories = this.list();
 
     if (categories.length === 0) {
       throw new Error('No categories available');

@@ -82,8 +82,8 @@ export class MixedLettersGameComponent implements OnInit {
         if (this.currentCategory) {
           this.words = this.currentCategory.words;
 
-          this.pointsPerWord = Math.floor(100 / this.words.length);
-          this.totalPoints = this.pointsPerWord
+          this.pointsPerWord = Math.ceil(100 / this.words.length);
+          this.totalPoints = this.pointsPerWord;
 
           this.extraPoints = this.totalPoints - 100;
           this.setNextWord();
@@ -99,9 +99,9 @@ export class MixedLettersGameComponent implements OnInit {
 
       if (scrambledWord === currentWord.origin) {
         scrambledWord = this.scrambleWord(currentWord.origin);
-        this.scrambleWord(currentWord.origin)
+        this.scrambleWord(currentWord.origin);
       }
-      
+
       this.originWord = scrambledWord;
     } else {
       this.navWithResultData();
@@ -125,31 +125,31 @@ export class MixedLettersGameComponent implements OnInit {
     if (!this.isValidGuess) {
       return;
     }
-  
+
     const currentWord = this.words[this.currentWordIndex];
-    this.isCorrect = this.userGuess.toLowerCase() === currentWord.origin.toLowerCase();
-  
+    this.isCorrect =
+      this.userGuess.toLowerCase() === currentWord.origin.toLowerCase();
+
     const pointsEarned = this.pointsPerWord || 0;
-  
+
     if (this.isCorrect) {
       this.coins += pointsEarned;
       this.correctGuesses++;
     } else {
       this.incorrectGuesses++;
     }
-  
+
     this.wordResults.push({
       hebrewWord: currentWord.target,
       guessedWord: this.userGuess,
       isCorrect: this.isCorrect,
     });
-  
+
     this.openAnswerDialog(this.isCorrect);
     this.userGuess = '';
     this.currentWordIndex++;
     this.setNextWord();
   }
-
 
   resetForm(): void {
     this.userGuess = '';

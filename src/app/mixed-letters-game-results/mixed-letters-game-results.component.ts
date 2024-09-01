@@ -17,7 +17,7 @@ interface WordResult {
   standalone: true,
   imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule],
   templateUrl: './mixed-letters-game-results.component.html',
-  styleUrls: ['./mixed-letters-game-results.component.css']
+  styleUrls: ['./mixed-letters-game-results.component.css'],
 })
 export class MixedLettersGameResultsComponent implements OnInit {
   correctCount: number = 0;
@@ -25,20 +25,22 @@ export class MixedLettersGameResultsComponent implements OnInit {
   coins: number = 0;
   displayedColumns: string[] = ['hebrewWord', 'guessedWord', 'status'];
   dataSource: WordResult[] = [];
-  
-  constructor(
-    private gamesService: GamesService,
-    private router: Router
-  ) {}
+
+  constructor(private gamesService: GamesService, private router: Router) {}
 
   ngOnInit(): void {
     this.correctCount = this.gamesService.getCorrectAnswers();
     this.incorrectCount = this.gamesService.getIncorrectAnswers();
     this.coins = this.gamesService.getCoins();
     this.dataSource = this.gamesService.getResults();
+    if (this.coins > 100) {
+      this.coins = 100;
+    } else {
+      this.coins;
+    }
   }
 
   play_again() {
-    this.router.navigate(["/lets-play"]);
+    this.router.navigate(['/lets-play']);
   }
 }

@@ -120,7 +120,7 @@ export class SortedWordsGameComponent implements OnInit {
 
   // set new word after user submit answer
   private setNextWord(): void {
-    if (this.currentWordIndex < 6) {
+    if (this.currentWordIndex <= 6) {
       this.currentWord = this.shuffledWords[this.currentWordIndex];
     } else {
       this.navToLetsPlay();
@@ -129,7 +129,6 @@ export class SortedWordsGameComponent implements OnInit {
 
   // check user answer
   checkAnswer(userSaidYes: boolean): void {
-    const pointsPerWord = Math.floor(100 / this.shuffleWords.length);
     if (!this.currentWord) return;
     const isCorrect = userSaidYes === this.currentWord.belongsToCurrent;
     this.wordResults.push({
@@ -140,18 +139,21 @@ export class SortedWordsGameComponent implements OnInit {
       hebrewWord: '',
       guessedWord: '',
     });
-
     this.isCorrect = isCorrect;
-
     if (isCorrect) { 
       this.coins += Math.round(100/6);
       this.correctGuesses++;
     } else {
       this.incorrectGuesses++;
     }
+    // need to add function that indicates when to stop
+    // if(this.currentWordIndex = 0) {
+    //   this.navWithResultData()
+    // }
     this.openAnswerDialog(isCorrect);
     this.currentWordIndex++;
     this.setNextWord();
+
   }
 
   openConfirmDialog(): void {
@@ -177,16 +179,26 @@ export class SortedWordsGameComponent implements OnInit {
   }
 
   get progress(): number {
-    return (this.currentWordIndex / this.shuffledWords.length) * 100;
+    return (this.currentWordIndex / (this.shuffledWords.length - 1)) * 100;
   }
 
   private navToLetsPlay(): void {
     this.closeDialogs();
-    //this.router.navigate(['sorted-words-game-results']);
+    this.router.navigate(['/lets-play']);
   }
 
   private closeDialogs(): void {
     this.confirmDialog.closeAll();
     this.answerDialog.closeAll();
+  }
+
+  navWithResultData(): void {
+    this.gamesService.setResults(
+      this.wordResults,
+      this.correctGuesses,
+      this.incorrectGuesses,
+      this.coins
+    );
+    this.router.navigate(['/sorted-words-game-results']);
   }
 }

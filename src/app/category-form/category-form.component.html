@@ -31,9 +31,9 @@
                 </button>
             </div>
             <div *ngIf="currentCategory.words.length == 0">
-                A category must have at least one word
+                A category must have at least 3 words
             </div>
-            <div *ngIf="currentCategory.words.length > 0" ngModelGroup="words" #wordsGroup="ngModelGroup">
+            <div *ngIf="currentCategory.words.length >= 3" ngModelGroup="words" #wordsGroup="ngModelGroup">
                 <table mat-table [dataSource]="currentCategory.words">
                     <ng-container matColumnDef="Origin">
                         <th mat-header-cell *matHeaderCellDef>Origin</th>

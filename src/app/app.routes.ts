@@ -9,6 +9,7 @@ import { MixedLettersGameComponent } from './mixed-letters-game/mixed-letters-ga
 import { SortedWordsGameComponent } from './sorted-words-game/sorted-words-game.component';
 import { MixedLettersGameResultsComponent } from './mixed-letters-game-results/mixed-letters-game-results.component';
 import { SortedWordsGameResultsComponent } from './sorted-words-game-results/sorted-words-game-results.component';
+import { DisplaySingleWordComponent } from './matching-game-module/model/display-single-word/display-single-word.component';
 
 
 export const routes: Routes = [
@@ -23,7 +24,7 @@ export const routes: Routes = [
     {path: "lets-play", component: ChooseGameComponent},
     {path: "mixed-letters-game-results", component: MixedLettersGameResultsComponent},
     {path: "sorted-words-game-results", component: SortedWordsGameResultsComponent},
-
+    {path: "display-single-word", component: DisplaySingleWordComponent},
 
 ];
 

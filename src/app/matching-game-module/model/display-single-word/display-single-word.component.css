@@ -1,0 +1,25 @@
+.card-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 50% auto;
+    max-width: 600px;
+  }
+  
+  .word-card {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 45%; /* Adjust as needed */
+  }
+  
+  .icon-card {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 50% auto;
+    height: 10vh;
+    padding: 10px;
+  }

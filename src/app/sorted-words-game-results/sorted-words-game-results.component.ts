@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GamesService } from '../services/games.service';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 interface WordResult {
   hebrewWord: string;
@@ -13,9 +16,7 @@ interface WordResult {
 @Component({
   selector: 'app-sorted-words-game-results',
   standalone: true,
-  imports: [
-    CommonModule,
-  ],
+  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule],
   templateUrl: './sorted-words-game-results.component.html',
   styleUrl: './sorted-words-game-results.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

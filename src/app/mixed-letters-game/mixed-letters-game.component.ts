@@ -6,7 +6,7 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CategoriesService } from '../services/categories.service';
 import { Category } from '../../shared/model/category';
 import { MatCardModule } from '@angular/material/card';
@@ -43,7 +43,7 @@ import { GamesService } from '../services/games.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MixedLettersGameComponent implements OnInit {
-  @Input() id = '';
+  @Input() id = ''
   currentCategory?: Category;
   words: { origin: string; target: string }[] = [];
   currentWordIndex = 0;
@@ -56,7 +56,6 @@ export class MixedLettersGameComponent implements OnInit {
   confirmDialog = inject(MatDialog);
   answerDialog = inject(MatDialog);
   router = inject(Router);
-  route = inject(ActivatedRoute);
   categoriesService = inject(CategoriesService);
   gamesService = inject(GamesService);
   isCorrect = false;
@@ -73,24 +72,22 @@ export class MixedLettersGameComponent implements OnInit {
   extraPoints?: number;
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      if (id) {
-        const categoryId = +id;
-        this.currentCategory = this.categoriesService.get(categoryId);
+    if (this.id) {
+      const categoryId = +this.id;
+      this.currentCategory = this.categoriesService.get(categoryId);
 
-        if (this.currentCategory) {
-          this.words = this.currentCategory.words;
+      if (this.currentCategory) {
+        this.words = this.currentCategory.words;
 
-          this.pointsPerWord = Math.ceil(100 / this.words.length);
-          this.totalPoints = this.pointsPerWord;
+        this.pointsPerWord = Math.ceil(100 / this.words.length);
+        this.totalPoints = this.pointsPerWord;
 
-          this.extraPoints = this.totalPoints - 100;
-          this.setNextWord();
-        }
+        this.extraPoints = this.totalPoints - 100;
+        this.setNextWord()
       }
-    });
+    }
   }
+
 
   private setNextWord(): void {
     if (this.currentWordIndex < this.words.length) {

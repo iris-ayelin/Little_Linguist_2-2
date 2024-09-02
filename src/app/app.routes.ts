@@ -4,7 +4,7 @@ import { CategoryFormComponent } from './category-form/category-form.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HelpComponent } from './help/help.component';
 import { ChooseGameComponent } from './choose-game/choose-game.component';
-import { MatchWordsComponent } from './match-words-game/match-words-game.component';
+import { MatchWordsComponent } from './matching-game-module/match-words-game/match-words-game.component';
 import { MixedLettersGameComponent } from './mixed-letters-game/mixed-letters-game.component';
 import { SortedWordsGameComponent } from './sorted-words-game/sorted-words-game.component';
 import { MixedLettersGameResultsComponent } from './mixed-letters-game-results/mixed-letters-game-results.component';

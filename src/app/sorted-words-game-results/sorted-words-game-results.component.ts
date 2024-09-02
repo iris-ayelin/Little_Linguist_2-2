@@ -35,7 +35,6 @@ export class SortedWordsGameResultsComponent implements OnInit{
     this.incorrectCount = this.gamesService.getIncorrectAnswers();
     this.coins = this.gamesService.getCoins();
     this.dataSource = this.gamesService.getResults();
-    console.log(this.dataSource)
     if (this.coins > 100) {
       this.coins = 100;
     } else {

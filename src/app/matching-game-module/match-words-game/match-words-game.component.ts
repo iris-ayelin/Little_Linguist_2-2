@@ -5,6 +5,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ConfirmExitDialogComponent } from '../../confirm-exit-dialog/confirm-exit-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CategoriesService } from '../../services/categories.service';
+import { DisplaySingleWordComponent } from '../model/display-single-word/display-single-word.component';
+
+
 
 @Component({
   selector: 'app-match-words-game',
@@ -20,10 +24,13 @@ export class MatchWordsComponent implements OnInit {
   currentCategory?: Category;
 
   confirmDialog = inject(MatDialog);
+  //randomWords = inject(DisplaySingleWordComponent)
 
-  constructor() {}
-
+  constructor(private CategoriesService: CategoriesService) {}
   ngOnInit(): void {
+    this.currentCategory = this.CategoriesService.get(parseInt(this.id))
+    console.log(this.id)
+    //this.randomWords(this.id)
 
   }
   

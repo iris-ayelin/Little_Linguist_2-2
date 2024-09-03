@@ -15,11 +15,10 @@ export enum WordStatus {
 @Component({
   selector: 'app-display-single-word',
   standalone: true,
-  imports: [CommonModule,MatCardModule, MatIconModule],
+  imports: [CommonModule, MatCardModule, MatIconModule],
   templateUrl: './display-single-word.component.html',
   styleUrl: './display-single-word.component.css',
 })
-
 export class DisplaySingleWordComponent implements OnInit {
   @Input() id = '';
   currentCategory?: Category;
@@ -36,16 +35,26 @@ export class DisplaySingleWordComponent implements OnInit {
   isCorrect = false;
   originWordsArray: any;
   targetWordsArray: any;
+  categoryId = 1;
 
   ngOnInit(): void {
-      const categoryId = 1;
-      this.currentCategory = this.categoriesService.get(categoryId);
-      console.log(this.currentCategory)
+    this.setRandomWords(this.categoryId);
+  }
 
-      this.words = this.categoriesService.getRandomWordsFromCategory(categoryId, 5);
-      this.originWordsArray = this.words.map(word => word.origin).sort(() => 0.5 - Math.random());
-      this.targetWordsArray = this.words.map(word => word.target).sort(() => 0.5 - Math.random());
+  setRandomWords(categoryId: number) {
+    this.currentCategory = this.categoriesService.get(categoryId);
+
+    this.words = this.categoriesService.getRandomWordsFromCategory(
+      categoryId,
+      5
+    );
+    this.originWordsArray = this.words
+      .map((word) => word.origin)
+      .sort(() => 0.5 - Math.random());
+    this.targetWordsArray = this.words
+      .map((word) => word.target)
+      .sort(() => 0.5 - Math.random());
+
+    return(this.targetWordsArray, this.originWordsArray)
   }
 }
-
-

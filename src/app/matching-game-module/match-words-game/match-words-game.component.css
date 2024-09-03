@@ -1,9 +1,54 @@
+.game-cointainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center vertically */
+  min-height: 100vh;       /* Full height of the viewport */
+  width: 80%;              /* Set width to 80% of the viewport */
+  max-width: 625px;       /* Maximum width */
+  margin: 0 auto;          /* Center horizontally */
+}
+
 .title-container {
+  margin-bottom: 0;
   text-align: center;
-  margin-top: 20px;
+  width: 100%; /* Full width of the game container */
 }
 
 .title {
   font-size: 36px; 
   font-weight: bold;
+}
+
+.card-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50% auto;
+  max-width: 600px;
+}
+
+.word-card {
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 45%; /* Adjust as needed */
+}
+
+.icon-card {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  width: 50% auto;
+  height: 5vh;
+  padding: 10px;
+  background-color: lightyellow;
+  cursor: pointer;
+}
+
+button {
+  margin-top: 20px;
+  align-self: flex-end; /* Aligns button to the bottom right */
 }

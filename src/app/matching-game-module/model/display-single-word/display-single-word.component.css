@@ -1,4 +1,4 @@
-.card-container {
+/* .card-container {
     position: relative;
     display: flex;
     align-items: center;
@@ -11,7 +11,7 @@
     margin: 20px;
     display: flex;
     flex-direction: column;
-    width: 45%; /* Adjust as needed */
+    width: 45%;
   }
   
   .icon-card {
@@ -22,4 +22,4 @@
     width: 50% auto;
     height: 10vh;
     padding: 10px;
-  }
+  } */

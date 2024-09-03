@@ -10,8 +10,8 @@ export class CategoriesService {
   getAllCategories(): Category[] {
     return this.categories;
   }
-  
-  getRandomCategory(categories : any): Category {
+
+  getRandomCategory(categories: any): Category {
     this.categories = this.list();
 
     if (categories.length === 0) {

@@ -25,6 +25,5 @@ export const routes: Routes = [
     {path: "mixed-letters-game-results", component: MixedLettersGameResultsComponent},
     {path: "sorted-words-game-results", component: SortedWordsGameResultsComponent},
     {path: "display-single-word", component: DisplaySingleWordComponent},
-
 ];
 

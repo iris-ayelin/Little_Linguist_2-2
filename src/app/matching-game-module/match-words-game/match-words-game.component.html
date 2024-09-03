@@ -1,7 +1,21 @@
-<div class="title-container">
-    <h1 class="title"> Match Words - {{ currentCategory?.name}} </h1>
-</div>
+<div class="game-cointainer">
+    <div class="title-container">
+        <h1 class="title">Match Words - {{ currentCategory?.name}}</h1>
+    </div>
+    <div class="card-container">
+        <div class="word-card">
+            <mat-card *ngFor="let word of originWordsArray" class="icon-card">
+                {{ word }}
+            </mat-card>
+        </div>
 
-<button mat-mini-fab (click)="exitGame()">
-    <mat-icon aria-label="Exit Game">exit_to_app</mat-icon>
-  </button>
+        <div class="word-card">
+            <mat-card *ngFor="let word of targetWordsArray" class="icon-card">
+                {{ word }}
+            </mat-card>
+        </div>
+    </div>
+    <button mat-mini-fab (click)="exitGame()">
+        <mat-icon aria-label="Exit Game">exit_to_app</mat-icon>
+    </button>
+</div>

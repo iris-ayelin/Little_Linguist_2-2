@@ -4,13 +4,15 @@
     </div>
     <div class="card-container">
         <div class="word-card">
-            <mat-card *ngFor="let word of originWordsArray" class="icon-card">
+            <mat-card *ngFor="let word of originWordsArray" class="icon-card"
+            (click)="selectOriginWord(word)">
                 {{ word }}
             </mat-card>
         </div>
 
         <div class="word-card">
-            <mat-card *ngFor="let word of targetWordsArray" class="icon-card">
+            <mat-card *ngFor="let word of targetWordsArray" class="icon-card"
+            (click)="selectTargetWord(word)">
                 {{ word }}
             </mat-card>
         </div>

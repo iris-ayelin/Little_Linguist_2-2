@@ -52,3 +52,9 @@ button {
   margin-top: 20px;
   align-self: flex-end; /* Aligns button to the bottom right */
 }
+
+.matched {
+  background-color: blue;
+  color: white;
+}
+

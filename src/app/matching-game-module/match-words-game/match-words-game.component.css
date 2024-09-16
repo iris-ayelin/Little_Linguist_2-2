@@ -53,8 +53,7 @@ button {
   align-self: flex-end; /* Aligns button to the bottom right */
 }
 
-.matched {
+.matched-word {
   background-color: blue;
   color: white;
 }
-

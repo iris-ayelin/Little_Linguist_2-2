@@ -45,7 +45,7 @@ export class GameDialogComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.categories = this.categoriesService.list();
+    //this.categoriesService.list = this.categoriesService.list();
   }
 
   letsPlay() {

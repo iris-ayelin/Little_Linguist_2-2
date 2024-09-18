@@ -88,7 +88,7 @@
 //       if (id) {
 //         const categoryId = +id;
 //         const categories = this.categoriesService.list();
-//         this.selectedCategory = this.categoriesService.get(categoryId);
+//         this.selectedCategory = this.categoriesService.get(id);
 //         if (categories.length == categoryId) {
 //           categories.splice(categoryId - 1, 1);
 //         } else {

@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Category } from '../../shared/model/category';
-import { addDoc, collection, DocumentSnapshot, Firestore, getDocs, QuerySnapshot } from '@angular/fire/firestore';
-import { categoryConverter } from './converter/category-converter'; 
+import {
+  addDoc,
+  collection,
+  DocumentSnapshot,
+  Firestore,
+  getDocs,
+  QuerySnapshot,
+} from '@angular/fire/firestore';
+import { categoryConverter } from './converter/category-converter';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +17,10 @@ export class CategoriesService {
   constructor(private firestore: Firestore) {}
 
   async list(): Promise<Category[]> {
-    const categoryCollection = collection(this.firestore, 'categories').withConverter(
-      categoryConverter
-    );
+    const categoryCollection = collection(
+      this.firestore,
+      'categories'
+    ).withConverter(categoryConverter);
 
     const querySnapshot: QuerySnapshot<Category> = await getDocs(
       categoryCollection
@@ -25,20 +33,21 @@ export class CategoriesService {
       if (data) {
         result.push(data);
       }
-    });  
-
+    });
+    console.log('Raw Firestore Data:', result); // Check the raw Firestore data
     return result;
   }
+  
 
   get(id: string): Category | undefined {
     return undefined;
   }
 
-  async add(newPersonData: Category) {
-    const categoryCollection = collection(this.firestore, 'categories').withConverter(
-      categoryConverter
+  async add(newCategtoryData: Category) {
+    await addDoc(
+      collection(this.firestore, 'categories').withConverter(categoryConverter),
+      newCategtoryData
     );
-    await addDoc(categoryCollection, newPersonData);
   }
 
   update(existingPerson: Category): void {}

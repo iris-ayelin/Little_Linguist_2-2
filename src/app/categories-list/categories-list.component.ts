@@ -14,24 +14,53 @@ import { DeleteCategoryDialogComponent } from '../delete-category-dialog/delete-
   selector: 'app-categories-list',
   standalone: true,
   imports: [
-    CommonModule, MatTableModule, MatIconModule, MatButtonModule, RouterModule
+    CommonModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    RouterModule,
   ],
   templateUrl: './categories-list.component.html',
   styleUrl: './categories-list.component.css',
 })
 export class CategoriesListComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'numOfWords', 'lastUpdateDate', 'actions'];
-  dataSource : Category[] = [];
+  isFullyLoaded = false;
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'numOfWords',
+    'lastUpdateDate',
+    'actions',
+  ];
+  dataSource: Category[] = [];
+  allCategories: Category[] = [];
 
-  constructor(private categoriesService : CategoriesService, private dialogService : MatDialog) {}
+  constructor(
+    private categoriesService: CategoriesService,
+    private dialogService: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.categoriesService.list().then((result: Category[]) => {
-      // this.allPersons = result;
-      // this.isFullyLoaded = true;
+      this.allCategories = result;
+      this.dataSource = this.allCategories;  // Add this line
+      this.isFullyLoaded = true;
     });
   }
+  
 
-  deleteCategory(id : number, name: string) {
+  deleteCategory(id: string, name: string) {
+    const dialogRef = this.dialogService.open(DeleteCategoryDialogComponent, {
+      data: id,
+    });
+
+    dialogRef.afterClosed().subscribe((deletionResult) => {
+      if (deletionResult) {
+        this.categoriesService.delete(id);
+        this.categoriesService.list().then((result: Category[]) => {
+          this.allCategories = result;
+        });
+      }
+    });
   }
 }

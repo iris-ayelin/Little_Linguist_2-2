@@ -1,9 +1,5 @@
-import {
-  QueryDocumentSnapshot,
-  SnapshotOptions,
-} from '@angular/fire/firestore';
+import { QueryDocumentSnapshot,SnapshotOptions } from '@angular/fire/firestore';
 import { Category, TranslatedWord } from '../../../shared/model/category';
-import { Language } from '../../../shared/model/language';
 
 export const categoryConverter = {
   toFirestore: (categoryToSave: Category) => {
@@ -29,9 +25,6 @@ export const categoryConverter = {
     options: SnapshotOptions
   ) => {
     const data = snapshot.data(options);
-    console.log('Firestore Document Data:', data)
-  
-
     const lastUpdateDate = data['lastUpdateDate'] ? data['lastUpdateDate'].toDate() : null;
   
     const words = data['words'];

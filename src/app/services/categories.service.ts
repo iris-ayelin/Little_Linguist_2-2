@@ -1,18 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Category } from '../../shared/model/category';
-import {
-  addDoc,
-  collection,
-  DocumentSnapshot,
-  Firestore,
-  getDocs,
-  QuerySnapshot,
-} from '@angular/fire/firestore';
+import { addDoc, collection, DocumentSnapshot, Firestore, getDocs, QuerySnapshot } from '@angular/fire/firestore';
 import { categoryConverter } from './converter/category-converter';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class CategoriesService {
   constructor(private firestore: Firestore) {}
 
@@ -34,7 +28,7 @@ export class CategoriesService {
         result.push(data);
       }
     });
-    console.log('Raw Firestore Data:', result); // Check the raw Firestore data
+    console.log('Raw Firestore Data:', result)
     return result;
   }
   

@@ -6,6 +6,7 @@ import {
   doc,
   DocumentSnapshot,
   Firestore,
+  getDoc,
   getDocs,
   QuerySnapshot,
   setDoc,
@@ -17,6 +18,23 @@ import { categoryConverter } from './converter/category-converter';
 })
 export class CategoriesService {
   constructor(private firestore: Firestore) {}
+
+  async getCategories(): Promise<Map<number, Category>> {
+    const categoriesMap = new Map<number, Category>();
+
+    const querySnapshot = await getDocs(
+      collection(this.firestore, 'categories')
+    ); // Replace with your collection name
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      const categoryId = Number(doc.id); // Assuming the Firestore document ID is a number or can be parsed as one
+      const categoryData: Category = data as Category; // Type casting based on your Category interface/model
+
+      categoriesMap.set(categoryId, categoryData);
+    });
+
+    return categoriesMap;
+  }
 
   async list(): Promise<Category[]> {
     const categoryCollection = collection(
@@ -39,8 +57,11 @@ export class CategoriesService {
     return result;
   }
 
-  get(id: string): Category | undefined {
-    return undefined;
+  async get(id: string): Promise<Category | undefined> {
+    const docRef = doc(this.firestore, 'categories', id.toString()); // Convert id to string if needed
+    const docSnap = await getDoc(docRef);
+  
+    return docSnap.exists() ? (docSnap.data() as Category) : undefined;
   }
 
   async add(newCategoryData: Category) {

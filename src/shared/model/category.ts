@@ -12,8 +12,7 @@ export class Category {
     public id: string,
     public name: string,
     public origin: Language,
-    public target: Language,
-    
+    public target: Language
   ) {}
 }
 

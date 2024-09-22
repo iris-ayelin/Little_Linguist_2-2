@@ -35,17 +35,28 @@ export class CategoryFormComponent implements OnInit {
   id? : string;
 
   @ViewChild('wordsGroup') wordsGroup? : NgModelGroup;
+  words?: TranslatedWord[]
+  pointsPerWord?: number;
+  totalPoints?: number;
+  extraPoints?: number;
+  setNextWord: any;
 
   constructor(private categoriesService : CategoriesService,
     private router : Router){}
 
-  ngOnInit(): void {
-    if (this.id) {
-      const personFromService = this.categoriesService.get(this.id);
-             if (personFromService) {
-               this.currentCategory = personFromService;
-      } }
-      }
+    ngOnInit(): void {
+      if (this.id) {
+        this.categoriesService.get(this.id).then((categoryFromService) => {
+          if (categoryFromService) {
+            this.currentCategory = categoryFromService;
+    
+            this.words = this.currentCategory.words;
+            this.pointsPerWord = Math.ceil(100 / this.words.length);
+            this.totalPoints = this.pointsPerWord;
+            this.extraPoints = this.totalPoints - 100;
+    
+          }
+        })}}
 
   addWord() {
     this.currentCategory.words = 
@@ -70,3 +81,4 @@ export class CategoryFormComponent implements OnInit {
     this.router.navigate(['']);
   }
 }
+

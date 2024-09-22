@@ -71,22 +71,22 @@ export class MixedLettersGameComponent implements OnInit {
   totalPoints?: number;
   extraPoints?: number;
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     if (this.id) {
       const categoryId = +this.id;
-      this.currentCategory = this.categoriesService.get(this.id);
-
-      if (this.currentCategory) {
-        this.words = this.currentCategory.words;
-
-        this.pointsPerWord = Math.ceil(100 / this.words.length);
-        this.totalPoints = this.pointsPerWord;
-
-        this.extraPoints = this.totalPoints - 100;
-        this.setNextWord()
-      }
-    }
-  }
+        // Wait for the category to be fetched
+        this.currentCategory = await this.categoriesService.get(this.id);
+  
+        if (this.currentCategory) {
+          this.words = this.currentCategory.words;
+  
+          this.pointsPerWord = Math.ceil(100 / this.words.length);
+          this.totalPoints = this.pointsPerWord;
+  
+          this.extraPoints = this.totalPoints - 100;
+          this.setNextWord();
+        }
+      }}
 
 
   private setNextWord(): void {

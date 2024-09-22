@@ -34,7 +34,6 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class GameDialogComponent implements OnInit {
   selectedCategory?: Category;
-
   categories: Category[] = [];
 
   constructor(
@@ -44,8 +43,8 @@ export class GameDialogComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
-    //this.categoriesService.list = this.categoriesService.list();
+  async ngOnInit(): Promise<void> {
+    this.categories = await this.categoriesService.list();
   }
 
   letsPlay() {

@@ -21,7 +21,7 @@ export const routes: Routes = [
     {path: "help", component: HelpComponent},
     // {path: "match-words-game/:id", component: MatchWordsComponent,},
     {path: "mixed-letters-game/:id", component: MixedLettersGameComponent},
-     {path: "sorted-words-game/:id", component: SortedWordsGameComponent },
+    //{path: "sorted-words-game/:id", component: SortedWordsGameComponent },
     {path: "lets-play", component: ChooseGameComponent},
     {path: "mixed-letters-game-results", component: MixedLettersGameResultsComponent},
     {path: "sorted-words-game-results", component: SortedWordsGameResultsComponent},

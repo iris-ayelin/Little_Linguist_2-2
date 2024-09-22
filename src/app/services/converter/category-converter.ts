@@ -30,8 +30,8 @@ export const categoryConverter = {
     const words = data['words'];
     const category = new Category(
       snapshot.id,
-      lastUpdateDate, 
       data['name'],
+      lastUpdateDate, 
       words || []    
     );
   

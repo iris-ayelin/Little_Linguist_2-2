@@ -36,6 +36,7 @@ export class GameDialogComponent implements OnInit {
   selectedCategory?: Category;
   categories: Category[] = [];
 
+
   constructor(
     public categoriesService: CategoriesService,
     public dialogRef: MatDialogRef<GameDialogComponent>,
@@ -45,6 +46,7 @@ export class GameDialogComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.categories = await this.categoriesService.list();
+    
   }
 
   letsPlay() {

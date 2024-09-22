@@ -36,8 +36,9 @@ export class ChooseGameComponent implements OnInit {
       width: '250px',
       data: { 
         game: this.selectedGame, 
-        categoryId: this.categoryId
-      },
+        gameUrl: game.gameUrl, // Correct the typo to 'gameUrl'
+        categoryId: this.categoryId,
+      },     
     });
   }
 
@@ -45,7 +46,7 @@ export class ChooseGameComponent implements OnInit {
     this.allGames = this.gamesService.getGames();
     this.categories = await this.categoriesService.list();
     if (this.categories.length > 0) {
-      this.categoryId = this.categories[0].id;  // Assuming `id` is part of Category model
+      this.categoryId = this.categories[0].id;
     }
   }
 }

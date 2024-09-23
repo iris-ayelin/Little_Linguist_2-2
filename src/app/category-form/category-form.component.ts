@@ -16,62 +16,74 @@ import { TranslatedWord } from '../../shared/model/translated-word';
   selector: 'app-category-form',
   standalone: true,
   imports: [
-    CommonModule, 
-    FormsModule, 
-    MatFormFieldModule, 
-    MatInputModule, 
-    MatButtonModule, 
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
     MatIconModule,
-    MatTableModule
+    MatTableModule,
   ],
   templateUrl: './category-form.component.html',
   styleUrl: './category-form.component.css',
 })
-export class CategoryFormComponent implements OnInit { 
-  currentCategory: Category = new Category('','',Language.English,Language.Hebrew);
-  displayedColumns: string[] = ["Origin", "Target", "Actions"];
+export class CategoryFormComponent implements OnInit {
+  currentCategory: Category = new Category(
+    '',
+    '',
+    Language.English,
+    Language.Hebrew
+  );
+  displayedColumns: string[] = ['Origin', 'Target', 'Actions'];
 
   @Input()
-  id? : string;
+  id?: string;
 
-  @ViewChild('wordsGroup') wordsGroup? : NgModelGroup;
-  words?: TranslatedWord[]
+  @ViewChild('wordsGroup') wordsGroup?: NgModelGroup;
+  words?: TranslatedWord[];
   pointsPerWord?: number;
   totalPoints?: number;
   extraPoints?: number;
   setNextWord: any;
 
-  constructor(private categoriesService : CategoriesService,
-    private router : Router){}
+  constructor(
+    private categoriesService: CategoriesService,
+    private router: Router
+  ) {}
 
-    ngOnInit(): void {
-      if (this.id) {
-        this.categoriesService.get(this.id).then((categoryFromService) => {
-          if (categoryFromService) {
-            this.currentCategory = categoryFromService;
-    
-            this.words = this.currentCategory.words;
-            this.pointsPerWord = Math.ceil(100 / this.words.length);
-            this.totalPoints = this.pointsPerWord;
-            this.extraPoints = this.totalPoints - 100;
-    
-          }
-        })}}
+  ngOnInit(): void {
+    if (this.id) {
+      this.categoriesService.get(this.id).then((categoryFromService) => {
+        if (categoryFromService) {
+          this.currentCategory = categoryFromService;
+
+          this.currentCategory.id = this.id ?? '';
+
+          this.words = this.currentCategory.words;
+          this.pointsPerWord = Math.ceil(100 / this.words.length);
+          this.totalPoints = this.pointsPerWord;
+          this.extraPoints = this.totalPoints - 100;
+        }
+      });
+    }
+  }
 
   addWord() {
-    this.currentCategory.words = 
-      [...this.currentCategory.words, 
-        new TranslatedWord("", "")];
- }
+    this.currentCategory.words = [
+      ...this.currentCategory.words,
+      new TranslatedWord('', ''),
+    ];
+  }
 
-  deleteWord(index : number) {
+  deleteWord(index: number) {
     let extendedWordsList = Array.from(this.currentCategory.words);
-    extendedWordsList.splice(index, 1)
+    extendedWordsList.splice(index, 1);
     this.currentCategory.words = extendedWordsList;
     this.wordsGroup!.control.markAsDirty();
   }
 
   saveCategory() {
+    console.log(this.currentCategory.id);
     if (this.id) {
       this.categoriesService.update(this.currentCategory);
     } else {
@@ -81,4 +93,3 @@ export class CategoryFormComponent implements OnInit {
     this.router.navigate(['']);
   }
 }
-

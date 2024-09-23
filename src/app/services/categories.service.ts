@@ -3,6 +3,7 @@ import { Category } from '../../shared/model/category';
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   DocumentSnapshot,
   Firestore,
@@ -24,11 +25,11 @@ export class CategoriesService {
 
     const querySnapshot = await getDocs(
       collection(this.firestore, 'categories')
-    ); // Replace with your collection name
+    );
     querySnapshot.forEach((doc) => {
       const data = doc.data();
-      const categoryId = Number(doc.id); // Assuming the Firestore document ID is a number or can be parsed as one
-      const categoryData: Category = data as Category; // Type casting based on your Category interface/model
+      const categoryId = Number(doc.id);
+      const categoryData: Category = data as Category;
 
       categoriesMap.set(categoryId, categoryData);
     });
@@ -58,9 +59,9 @@ export class CategoriesService {
   }
 
   async get(id: string): Promise<Category | undefined> {
-    const docRef = doc(this.firestore, 'categories', id.toString()); // Convert id to string if needed
+    const docRef = doc(this.firestore, 'categories', id.toString());
     const docSnap = await getDoc(docRef);
-  
+
     return docSnap.exists() ? (docSnap.data() as Category) : undefined;
   }
 
@@ -83,7 +84,22 @@ export class CategoriesService {
     await setDoc(doc(categoriesRef, newId), newCategoryData);
   }
 
-  update(existingCategory: Category): void {}
+  update(existingCategory: Category): void {
+    if (!existingCategory.id) {
+      return;
+    }
 
-  delete(existingCategoryId: string): void {}
+    const categoryRef = doc(
+      this.firestore,
+      'categories',
+      existingCategory.id
+    ).withConverter(categoryConverter);
+
+    setDoc(categoryRef, existingCategory);
+  }
+
+  async delete(existingCategoryId: string): Promise<void> {
+    const categoryRef = doc(this.firestore, 'categories', existingCategoryId);
+    deleteDoc(categoryRef);
+  }
 }

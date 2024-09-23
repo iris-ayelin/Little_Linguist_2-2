@@ -1,4 +1,7 @@
-import { QueryDocumentSnapshot,SnapshotOptions } from '@angular/fire/firestore';
+import {
+  QueryDocumentSnapshot,
+  SnapshotOptions,
+} from '@angular/fire/firestore';
 import { Category, TranslatedWord } from '../../../shared/model/category';
 
 export const categoryConverter = {
@@ -25,16 +28,18 @@ export const categoryConverter = {
     options: SnapshotOptions
   ) => {
     const data = snapshot.data(options);
-    const lastUpdateDate = data['lastUpdateDate'] ? data['lastUpdateDate'].toDate() : null;
-  
+    const lastUpdateDate = data['lastUpdateDate']
+      ? data['lastUpdateDate'].toDate()
+      : null;
+
     const words = data['words'];
     const category = new Category(
       snapshot.id,
       data['name'],
-      lastUpdateDate, 
-      words || []    
+      lastUpdateDate,
+      words || []
     );
-  
+
     if (words) {
       for (let i = 0; i < words.length; ++i) {
         category.words.push(
@@ -42,8 +47,7 @@ export const categoryConverter = {
         );
       }
     }
-  
+
     return category;
   },
-  
 };

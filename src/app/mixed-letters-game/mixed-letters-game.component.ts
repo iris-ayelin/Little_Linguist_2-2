@@ -43,11 +43,12 @@ import { GamesService } from '../services/games.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MixedLettersGameComponent implements OnInit {
-  @Input() id = ''
+  @Input() id = null
   currentCategory?: Category;
   words: { origin: string; target: string }[] = [];
   currentWordIndex = 0;
-  originWord: string | null = null;
+  originWord = ''
+  targetWord = ''
   userGuess = '';
   isValidGuess = true;
   coins = 0;
@@ -73,36 +74,39 @@ export class MixedLettersGameComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     if (this.id) {
-      const categoryId = +this.id;
-        // Wait for the category to be fetched
-        this.currentCategory = await this.categoriesService.get(this.id);
+      const categoryId : string = String(+this.id)
+        this.currentCategory = await this.categoriesService.get(categoryId);
   
         if (this.currentCategory) {
           this.words = this.currentCategory.words;
-  
+
           this.pointsPerWord = Math.ceil(100 / this.words.length);
           this.totalPoints = this.pointsPerWord;
   
           this.extraPoints = this.totalPoints - 100;
           this.setNextWord();
         }
+
       }}
 
 
   private setNextWord(): void {
     if (this.currentWordIndex < this.words.length) {
+      
       const currentWord = this.words[this.currentWordIndex];
       let scrambledWord = this.scrambleWord(currentWord.origin);
+      
 
       if (scrambledWord === currentWord.origin) {
         scrambledWord = this.scrambleWord(currentWord.origin);
         this.scrambleWord(currentWord.origin);
       }
-
       this.originWord = scrambledWord;
+      this.targetWord = currentWord.target
     } else {
       this.navWithResultData();
     }
+    
   }
 
   private scrambleWord(word: string): string {
@@ -115,7 +119,7 @@ export class MixedLettersGameComponent implements OnInit {
   }
 
   validateEnglishLetters(value: string): void {
-    this.isValidGuess = /^[a-zA-Z ]*$/.test(value);
+    this.isValidGuess = /^[a-zA-Z]*$/.test(value);
   }
 
   checkGuess(): void {

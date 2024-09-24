@@ -2,7 +2,7 @@
     <h1 class="title">Mixed Letters - {{ currentCategory?.name }}</h1>
   </div>
   
-  <div *ngIf="originWord">
+  <div *ngIf="words[currentWordIndex].target">
     <mat-card class="game-card">
       <mat-card-header>
         <!-- display the interpretation in Hebrew (target word) -->

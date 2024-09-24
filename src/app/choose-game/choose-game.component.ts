@@ -36,7 +36,7 @@ export class ChooseGameComponent implements OnInit {
       width: '250px',
       data: { 
         game: this.selectedGame, 
-        gameUrl: game.gameUrl, // Correct the typo to 'gameUrl'
+        gameUrl: game.gameUrl,
         categoryId: this.categoryId,
       },     
     });

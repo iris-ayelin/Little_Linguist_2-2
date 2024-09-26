@@ -21,6 +21,7 @@ export interface GameResult {
 })
 export class GameResultService {
   private gameResultsCollection = 'gameResults';
+  gameId: any;
 
   constructor(private firestore: Firestore) {}
 
@@ -29,14 +30,14 @@ export class GameResultService {
       collection(this.firestore, this.gameResultsCollection),
       {
         categoryId: gameResult.categoryId,
-        gameId: gameResult.gameId,
+        gameId: this.gameId,
         date: gameResult.date,
         points: gameResult.points,
       }
     );
   }
 
-  async list(playerId: string): Promise<GameResult[]> {
+  async list(): Promise<GameResult[]> {
     const result: GameResult[] = [];
 
     {
@@ -44,7 +45,7 @@ export class GameResultService {
         this.firestore,
         this.gameResultsCollection
       );
-      const newQueary = query(gameResultsRef, where('playerId', '==', playerId));
+      const newQueary = query(gameResultsRef) //where('playerId', '==', playerId));
 
       const querySnapshot = await getDocs(newQueary);
       querySnapshot.forEach((doc) => {

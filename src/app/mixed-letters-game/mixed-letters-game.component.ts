@@ -46,7 +46,8 @@ import { GameResultService } from '../services/game-result.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MixedLettersGameComponent implements OnInit {
-  @Input() id = null
+  @Input() id = ''
+  @Input() gameId = ''
   currentCategory?: Category;
   words: { origin: string; target: string }[] = [];
   currentWordIndex = 0;
@@ -77,6 +78,8 @@ export class MixedLettersGameComponent implements OnInit {
   extraPoints?: number;
 
   async ngOnInit(): Promise<void> {
+    console.log('gameId before adding result:', this.gameId);
+
     if (this.id) {
       const categoryId: string = String(+this.id);
       this.currentCategory = await this.categoriesService.get(categoryId);
@@ -90,6 +93,7 @@ export class MixedLettersGameComponent implements OnInit {
       }
       
     }
+    this.id = String(+this.id)
   }
   
 
@@ -182,9 +186,15 @@ export class MixedLettersGameComponent implements OnInit {
   }
 
   navWithResultData(): void {
+    if (this.coins > 100){
+      this.coins = 100;
+    } else {
+      this.coins;
+    }
+
     const gameResult = {
-      categoryId: this.currentCategory?.name || '',
-      gameId: this.id || '', 
+      categoryId: this.id,
+      gameId: this.gameId, 
       date: Timestamp.now(),
       points: this.coins
     };
@@ -200,5 +210,6 @@ export class MixedLettersGameComponent implements OnInit {
     this.gamesService.addGameResult(gameResult);
   
     this.router.navigate(['/mixed-letters-game-results']);
+    console.log(gameResult)
   }
 }

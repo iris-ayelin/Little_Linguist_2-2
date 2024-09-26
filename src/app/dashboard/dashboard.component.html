@@ -37,11 +37,13 @@
           <p>Days strike</p>
         </div>
         <div class="metric-item">
-          <span>{{ gamesThisMonth }}</span>
-          <p>Games this month</p>
+          <div class="metric-content">
+            <span>{{ gamesPlayedThisMonth }}</span>
+            <p>Games this month</p>
+          </div>
         </div>
         <div class="metric-item">
-          <span>{{ remainingGamesForChallenge }}</span>
+          <span>{{ gameTarget - gamesPlayedThisMonth }}</span>
           <p>More to complete challenge</p>
         </div>
       </div>

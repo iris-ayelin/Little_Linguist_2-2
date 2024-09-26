@@ -52,3 +52,26 @@ header h1 {
   font-size: 14px;
   color: #666;
 }
+
+.target {
+  display: none;
+  position: absolute;
+  top: 120%;
+  left: 0;
+  background-color: #28a745; /* Green background */
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
+  font-size: 14px;
+  font-weight: bold;
+  transform: translateY(10px); /* Start with slight offset */
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.metric-item:hover .target {
+  display: block;
+  transform: translateY(0); /* Move into view */
+  opacity: 1; /* Fade in */
+}

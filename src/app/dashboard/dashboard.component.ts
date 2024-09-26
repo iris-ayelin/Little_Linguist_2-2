@@ -19,14 +19,15 @@ export class DashboardComponent implements OnInit {
   highestScoreGame = 'Mixed Letters';
   perfectGamesPercentage = 0;
   daysStrike = 0;
-  gamesThisMonth = 0;
+  gamesPlayedThisMonth = 0;
   remainingGamesForChallenge = 0;
   mostFrequentCategory: string | null = null;
   mostFrequent: any;
   categoriesService = inject(CategoriesService);
   totalCategories = 0;
   categoriesNotLearned = 0;
-
+  gameTarget = 20
+  gameResults : GameResult[] = []
 
 
 
@@ -34,7 +35,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPlayerData();
-    this.getLastMonthStats();
+    this.loadGamesThisMonth()
     this.loadMostFrequentCategory();
 
   }
@@ -57,12 +58,7 @@ export class DashboardComponent implements OnInit {
 
     const datesPlayed = gameResults.map(result => result.date.toDate());
     this.daysStrike = this.calculateDaysStrike(datesPlayed, currentDate);
-    this.gamesThisMonth = gameResults.filter(result => {
-      const date = result.date.toDate();
-      return date.getMonth() === currentDate.getMonth() && date.getFullYear() === currentDate.getFullYear();
-    }).length;
 
-    this.remainingGamesForChallenge = Math.max(20 - this.gamesThisMonth, 0);
   }
 
   private calculateDaysStrike(datesPlayed: Date[], currentDate: Date): number {
@@ -119,4 +115,10 @@ export class DashboardComponent implements OnInit {
 
     return mostFrequent;
   }
+
+
+  async loadGamesThisMonth() {
+      this.gameResults = await this.gameResultService.getGamesThisMonth();
+      this.gamesPlayedThisMonth = this.gameResults.length;
+    }
 }

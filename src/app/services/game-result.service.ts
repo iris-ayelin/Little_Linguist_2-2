@@ -45,7 +45,7 @@ export class GameResultService {
         this.firestore,
         this.gameResultsCollection
       );
-      const newQueary = query(gameResultsRef) //where('playerId', '==', playerId));
+      const newQueary = query(gameResultsRef); //where('playerId', '==', playerId));
 
       const querySnapshot = await getDocs(newQueary);
       querySnapshot.forEach((doc) => {
@@ -53,6 +53,36 @@ export class GameResultService {
         result.push(data);
       });
     }
+
+    return result;
+  }
+
+  async getGamesThisMonth(): Promise<GameResult[]> {
+    const result: GameResult[] = [];
+
+    const now = new Date();
+    const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+    const firstDayTimestamp = Timestamp.fromDate(firstDayOfMonth);
+    const nowTimestamp = Timestamp.fromDate(now);
+
+    const gameResultsRef = collection(
+      this.firestore,
+      this.gameResultsCollection
+    );
+
+    const dateQuery = query(
+      gameResultsRef,
+      where('date', '>=', firstDayTimestamp),
+      where('date', '<=', nowTimestamp)
+    );
+
+    const querySnapshot = await getDocs(dateQuery);
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data() as GameResult;
+      result.push(data);
+    });
 
     return result;
   }

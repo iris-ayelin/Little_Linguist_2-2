@@ -2,6 +2,8 @@ import { Timestamp } from '@angular/fire/firestore';
 import { addDoc, collection, Firestore } from 'firebase/firestore';
 
 export class GameResult {
+  points: number;
+  date: any;
   constructor(public firestore: Firestore) {}
 
   async createResult(

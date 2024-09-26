@@ -81,7 +81,7 @@ export class GamesService {
     date: Timestamp;
     points: number;
   }): Promise<void> {
-    await this.gameResultService.addGameResult(gameResult);
+    await this.gameResultService.addGameResult(gameResult)
 
   }
 }

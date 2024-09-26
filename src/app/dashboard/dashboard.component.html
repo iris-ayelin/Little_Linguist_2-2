@@ -1,1 +1,40 @@
-<h1> You're learning: </h1>
+<div class="dashboard-container">  
+    <div class="learning-section">
+      <h2>Your learning:</h2>
+      <div class="metrics-grid">
+        <div class="metric-item">
+          <span>{{ gamesPlayed }}</span>
+          <p>Games</p>
+        </div>
+        <div class="metric-item">
+          <span>{{ points }}</span>
+          <p>Points</p>
+        </div>
+        <div class="metric-item">
+          <span>{{ categoriesLearned }}</span>
+          <p>Categories learnt</p>
+        </div>
+        <div class="metric-item">
+          <span>{{ highestScoreGame }}</span>
+          <p>Highest score game</p>
+        </div>
+        <div class="metric-item">
+          <span>{{ perfectGamesPercentage | number: '1.0-0' }}%</span>
+          <p>Perfect games</p>
+        </div>
+        <div class="metric-item">
+          <span>{{ daysStrike }}</span>
+          <p>Days strike</p>
+        </div>
+        <div class="metric-item">
+          <span>{{ gamesThisMonth }}</span>
+          <p>Games this month</p>
+        </div>
+        <div class="metric-item">
+          <span>{{ remainingGamesForChallenge }}</span>
+          <p>More to complete challenge</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  

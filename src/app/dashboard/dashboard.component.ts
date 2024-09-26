@@ -33,7 +33,6 @@ export class DashboardComponent implements OnInit {
   constructor(private gameResultService: GameResultService) {}
 
   ngOnInit(): void {
-<<<<<<< HEAD
     this.loadPlayerData();
     this.getLastMonthStats();
     this.loadMostFrequentCategory();
@@ -43,19 +42,6 @@ export class DashboardComponent implements OnInit {
   private async loadPlayerData(): Promise<void> {
     const gameResults: GameResult[] = await this.gameResultService.list();
     this.calculateMetrics(gameResults);
-=======
-    this.loadPlayerData('playerId123'); 
-    this.lastMonthStats()
-  }
-
-  async loadPlayerData(playerId: string) {
-    try {
-      const gameResults: GameResult[] = await this.gameResultService.list();
-      this.calculateMetrics(gameResults);
-    } catch (error) {
-      console.error('Error loading game results:', error);
-    }
->>>>>>> fe994546feaab577c9aee1634e321cc269727ea0
   }
 
   private calculateMetrics(gameResults: GameResult[]): void {
@@ -95,7 +81,6 @@ export class DashboardComponent implements OnInit {
     return strikeCount;
   }
 
-<<<<<<< HEAD
   private async getLastMonthStats(): Promise<void> {
     const points = await this.gameResultService.list();
     console.log(points);
@@ -110,7 +95,6 @@ export class DashboardComponent implements OnInit {
     const allCategories = await this.categoriesService.get
     this.totalCategories = allCategories.length;
 
-    // Calculate categories not learned
     this.categoriesNotLearned = this.totalCategories - this.categoriesLearned;
   }
 
@@ -119,7 +103,7 @@ export class DashboardComponent implements OnInit {
     const categoryCount: { [key: string]: number } = {};
 
     for (const result of gameResults) {
-      const categoryId = result.categoryId; // Assuming categoryId is the identifier for the category
+      const categoryId = result.categoryId;
       categoryCount[categoryId] = (categoryCount[categoryId] || 0) + 1;
     }
 
@@ -136,12 +120,3 @@ export class DashboardComponent implements OnInit {
     return mostFrequent;
   }
 }
-=======
-
-
-  async lastMonthStats(): Promise<void>{
-    const point = this.gameResultService.list()
-    console.log(point)
-  }
-}
->>>>>>> fe994546feaab577c9aee1634e321cc269727ea0

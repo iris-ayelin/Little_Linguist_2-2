@@ -29,6 +29,7 @@ export class DashboardComponent implements OnInit {
   gameTarget = 20
   gameResults : GameResult[] = []
   streakCount = 0;
+  percentageCategoriesLearned = 0
 
 
 
@@ -45,22 +46,34 @@ export class DashboardComponent implements OnInit {
     this.calculateMetrics(gameResults);
   }
 
-  private calculateMetrics(gameResults: GameResult[]): void {
+  private async calculateMetrics(gameResults: GameResult[]): Promise<void> {
     if (!gameResults.length) return;
-
+  
     const currentDate = Timestamp.now().toDate();
     this.gamesPlayed = gameResults.length;
     this.points = gameResults.reduce((sum, result) => sum + result.points, 0);
-    this.categoriesLearned = new Set(gameResults.map(result => result.categoryId)).size;
-
-
+  
+    // Fetch all categories using the correct method
+    const allCategories = await this.categoriesService.getCategories(); 
+    this.totalCategories = allCategories.size; 
+  
+    // Calculate the number of categories learned (played)
+    const categoriesLearnedSet = new Set(gameResults.map(result => result.categoryId));
+    this.categoriesLearned = categoriesLearnedSet.size;
+  
+    // Calculate the percentage of categories learned
+    if (this.totalCategories > 0) {
+      this.percentageCategoriesLearned = (this.categoriesLearned / this.totalCategories) * 100;
+    }
+    
     const perfectGames = gameResults.filter(result => result.points === 100).length;
     this.perfectGamesPercentage = (perfectGames / this.gamesPlayed) * 100;
-
+  
     const datesPlayed = gameResults.map(result => result.date.toDate());
     this.daysStrike = this.calculateDaysStrike(datesPlayed, currentDate);
-    
   }
+  
+  
 
   private calculateDaysStrike(datesPlayed: Date[], currentDate: Date): number {
     const sortedDates = datesPlayed.sort((a, b) => b.getTime() - a.getTime());

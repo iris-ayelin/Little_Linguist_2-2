@@ -28,14 +28,15 @@ export class DashboardComponent implements OnInit {
   categoriesNotLearned = 0;
   gameTarget = 20
   gameResults : GameResult[] = []
+  streakCount = 0;
 
 
 
   constructor(private gameResultService: GameResultService) {}
 
   ngOnInit(): void {
+    this.getGameStreak()
     this.loadPlayerData();
-    this.loadGamesThisMonth()
     this.loadMostFrequentCategory();
 
   }
@@ -58,7 +59,7 @@ export class DashboardComponent implements OnInit {
 
     const datesPlayed = gameResults.map(result => result.date.toDate());
     this.daysStrike = this.calculateDaysStrike(datesPlayed, currentDate);
-
+    
   }
 
   private calculateDaysStrike(datesPlayed: Date[], currentDate: Date): number {
@@ -75,11 +76,6 @@ export class DashboardComponent implements OnInit {
     }
 
     return strikeCount;
-  }
-
-  private async getLastMonthStats(): Promise<void> {
-    const points = await this.gameResultService.list();
-    console.log(points);
   }
 
   private async loadMostFrequentCategory(): Promise<void> {
@@ -120,5 +116,65 @@ export class DashboardComponent implements OnInit {
   async loadGamesThisMonth() {
       this.gameResults = await this.gameResultService.getGamesThisMonth();
       this.gamesPlayedThisMonth = this.gameResults.length;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    async getGameStreak(){
+      const now = new Date();
+      let currentDate = new Date(now);
+
+      currentDate.setDate(now.getDate() - 1);
+      currentDate.setHours(0, 0, 0, 0)
+
+      const gameResults: GameResult[] = await this.gameResultService.list()
+
+
+      function firestoreTimestampToDate(timestamp: { seconds: number, nanoseconds: number }): Date {
+        return new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
+      }
+
+
+      let foundGame = true;
+
+      while (foundGame) {
+        const hasGame = gameResults.some(result => {
+          const gameDate: Date = firestoreTimestampToDate(result.date);
+          gameDate.setHours(0, 0, 0, 0);
+          return gameDate.getTime() === currentDate.getTime();
+        });
+    
+        if (hasGame) {
+          this.streakCount++;
+          currentDate.setDate(currentDate.getDate() - 1);
+        } else {
+          foundGame = false;
+        }
+      }
+    
+      console.log(`Number of consecutive days a game was played: ${this.streakCount}`);
     }
 }

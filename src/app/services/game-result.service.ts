@@ -36,7 +36,7 @@ export class GameResultService {
     );
   }
 
-  async list(playerId: string): Promise<GameResult[]> {
+  async list(): Promise<GameResult[]> {
     const result: GameResult[] = [];
 
     {
@@ -44,7 +44,7 @@ export class GameResultService {
         this.firestore,
         this.gameResultsCollection
       );
-      const newQueary = query(gameResultsRef, where('playerId', '==', playerId));
+      const newQueary = query(gameResultsRef) //where('playerId', '==', playerId));
 
       const querySnapshot = await getDocs(newQueary);
       querySnapshot.forEach((doc) => {

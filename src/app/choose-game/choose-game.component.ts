@@ -34,7 +34,8 @@ export class ChooseGameComponent implements OnInit {
 
     const dialogRef = this.dialog.open(GameDialogComponent, {
       width: '250px',
-      data: { 
+      data: {
+        gameId: game.gameId,
         game: this.selectedGame, 
         gameUrl: game.gameUrl,
         categoryId: this.categoryId,

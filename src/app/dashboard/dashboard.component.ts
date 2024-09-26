@@ -25,11 +25,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPlayerData('playerId123'); 
+    this.lastMonthStats()
   }
 
   async loadPlayerData(playerId: string) {
     try {
-      const gameResults: GameResult[] = await this.gameResultService.list(playerId);
+      const gameResults: GameResult[] = await this.gameResultService.list();
       this.calculateMetrics(gameResults);
     } catch (error) {
       console.error('Error loading game results:', error);
@@ -81,5 +82,12 @@ export class DashboardComponent implements OnInit {
     }
 
     return strikeCount;
+  }
+
+
+
+  async lastMonthStats(): Promise<void>{
+    const point = this.gameResultService.list()
+    console.log(point)
   }
 }

@@ -21,6 +21,9 @@ import { ReturnAnswerDialogComponent } from '../return-answer-dialog/return-answ
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { GamesService } from '../services/games.service';
+import { Timestamp } from '@angular/fire/firestore';
+import { GameResultService } from '../services/game-result.service';
+
 
 @Component({
   selector: 'app-mixed-letters-game',
@@ -47,8 +50,8 @@ export class MixedLettersGameComponent implements OnInit {
   currentCategory?: Category;
   words: { origin: string; target: string }[] = [];
   currentWordIndex = 0;
-  originWord = ''
-  targetWord = ''
+  originWord = '';
+  targetWord = '';
   userGuess = '';
   isValidGuess = true;
   coins = 0;
@@ -59,6 +62,7 @@ export class MixedLettersGameComponent implements OnInit {
   router = inject(Router);
   categoriesService = inject(CategoriesService);
   gamesService = inject(GamesService);
+  gameResultService = inject(GameResultService);
   isCorrect = false;
 
   wordResults: {
@@ -74,39 +78,34 @@ export class MixedLettersGameComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     if (this.id) {
-      const categoryId : string = String(+this.id)
-        this.currentCategory = await this.categoriesService.get(categoryId);
+      const categoryId: string = String(+this.id);
+      this.currentCategory = await this.categoriesService.get(categoryId);
+    
+      if (this.currentCategory) {
+        this.words = this.currentCategory.words;
+        this.pointsPerWord = Math.ceil(100 / this.words.length);
+        this.totalPoints = this.pointsPerWord;
+        this.extraPoints = this.totalPoints - 100;
+        this.setNextWord();
+      }
+      
+    }
+  }
   
-        if (this.currentCategory) {
-          this.words = this.currentCategory.words;
-
-          this.pointsPerWord = Math.ceil(100 / this.words.length);
-          this.totalPoints = this.pointsPerWord;
-  
-          this.extraPoints = this.totalPoints - 100;
-          this.setNextWord();
-        }
-
-      }}
-
 
   private setNextWord(): void {
     if (this.currentWordIndex < this.words.length) {
-      
       const currentWord = this.words[this.currentWordIndex];
       let scrambledWord = this.scrambleWord(currentWord.origin);
-      
 
       if (scrambledWord === currentWord.origin) {
         scrambledWord = this.scrambleWord(currentWord.origin);
-        this.scrambleWord(currentWord.origin);
       }
       this.originWord = scrambledWord;
-      this.targetWord = currentWord.target
+      this.targetWord = currentWord.target;
     } else {
       this.navWithResultData();
     }
-    
   }
 
   private scrambleWord(word: string): string {
@@ -183,13 +182,23 @@ export class MixedLettersGameComponent implements OnInit {
   }
 
   navWithResultData(): void {
+    const gameResult = {
+      categoryId: this.currentCategory?.name || '',
+      gameId: this.id || '', 
+      date: Timestamp.now(),
+      points: this.coins
+    };
+  
     this.gamesService.setResults(
+      this.currentCategory?.id || '',
       this.wordResults,
       this.correctGuesses,
       this.incorrectGuesses,
       this.coins
     );
-
+  
+    this.gamesService.addGameResult(gameResult);
+  
     this.router.navigate(['/mixed-letters-game-results']);
   }
 }

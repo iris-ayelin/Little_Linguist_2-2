@@ -84,7 +84,7 @@ export class CategoriesService {
     await setDoc(doc(categoriesRef, newId), newCategoryData);
   }
 
-  update(existingCategory: Category): void {
+  async update(existingCategory: Category): Promise<void> {
     if (!existingCategory.id) {
       return;
     }

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GameProfile } from '../../shared/model/games';
+import { GameResultService } from './game-result.service'; // Import GameResultService
+import { Timestamp } from '@firebase/firestore'; // Ensure Timestamp is imported for Firestore
 
 interface WordResult {
   hebrewWord: string;
@@ -11,6 +13,8 @@ interface WordResult {
   providedIn: 'root',
 })
 export class GamesService {
+  constructor(private gameResultService: GameResultService) {}
+
   private games: GameProfile[] = [
     new GameProfile(
       '1',
@@ -37,13 +41,12 @@ export class GamesService {
   private incorrectAnswers: number = 0;
   private coins: number = 0;
 
-  constructor() {}
-
   public getGames(): GameProfile[] {
     return this.games;
   }
 
   public setResults(
+    categoryId: string,
     results: WordResult[],
     correctAnswers: number,
     incorrectAnswers: number,
@@ -54,6 +57,7 @@ export class GamesService {
     this.incorrectAnswers = incorrectAnswers;
     this.coins = coins;
   }
+  
 
   public getResults(): WordResult[] {
     return this.results;
@@ -69,5 +73,15 @@ export class GamesService {
 
   public getCoins(): number {
     return this.coins;
+  }
+
+  public async addGameResult(gameResult: {
+    categoryId: string;
+    gameId: string;
+    date: Timestamp;
+    points: number;
+  }): Promise<void> {
+    await this.gameResultService.addGameResult(gameResult);
+
   }
 }

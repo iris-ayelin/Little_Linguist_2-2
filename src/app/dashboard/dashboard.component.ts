@@ -38,7 +38,6 @@ export class DashboardComponent implements OnInit {
     this.getGameStreak()
     this.loadPlayerData();
     this.loadMostFrequentCategory();
-
   }
 
   private async loadPlayerData(): Promise<void> {
@@ -53,6 +52,7 @@ export class DashboardComponent implements OnInit {
     this.gamesPlayed = gameResults.length;
     this.points = gameResults.reduce((sum, result) => sum + result.points, 0);
     this.categoriesLearned = new Set(gameResults.map(result => result.categoryId)).size;
+
 
     const perfectGames = gameResults.filter(result => result.points === 100).length;
     this.perfectGamesPercentage = (perfectGames / this.gamesPlayed) * 100;
@@ -77,19 +77,18 @@ export class DashboardComponent implements OnInit {
 
     return strikeCount;
   }
+  
 
   private async loadMostFrequentCategory(): Promise<void> {
     const gameResults: GameResult[] = await this.gameResultService.list();
-    this.mostFrequentCategory = this.getMostFrequentCategory(gameResults);
+    
+    const mostFrequentCategoryId = this.getMostFrequentCategory(gameResults);
+  
+    if (mostFrequentCategoryId) {
+      const category = await this.categoriesService.get(mostFrequentCategoryId);
+      this.mostFrequentCategory = category ? category.name : null; 
   }
-
-  private async loadTotalCategories(): Promise<void> {
-    const allCategories = await this.categoriesService.get
-    this.totalCategories = allCategories.length;
-
-    this.categoriesNotLearned = this.totalCategories - this.categoriesLearned;
-  }
-
+}
 
   private getMostFrequentCategory(gameResults: GameResult[]): string | null {
     const categoryCount: { [key: string]: number } = {};

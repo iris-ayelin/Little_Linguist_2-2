@@ -53,25 +53,29 @@ export class DashboardComponent implements OnInit {
     this.gamesPlayed = gameResults.length;
     this.points = gameResults.reduce((sum, result) => sum + result.points, 0);
   
-    // Fetch all categories using the correct method
-    const allCategories = await this.categoriesService.getCategories(); 
-    this.totalCategories = allCategories.size; 
+    // Fetch all categories
+    const allCategories = await this.categoriesService.getCategories();
+    this.totalCategories = allCategories.size;
   
-    // Calculate the number of categories learned (played)
+    // Get the set of categories learned
     const categoriesLearnedSet = new Set(gameResults.map(result => result.categoryId));
     this.categoriesLearned = categoriesLearnedSet.size;
   
-    // Calculate the percentage of categories learned
+    // Calculate categories not learned
+    this.categoriesNotLearned = this.totalCategories - this.categoriesLearned;
+  
+    // Percentage of categories learned
     if (this.totalCategories > 0) {
       this.percentageCategoriesLearned = (this.categoriesLearned / this.totalCategories) * 100;
     }
-    
+  
     const perfectGames = gameResults.filter(result => result.points === 100).length;
     this.perfectGamesPercentage = (perfectGames / this.gamesPlayed) * 100;
   
     const datesPlayed = gameResults.map(result => result.date.toDate());
     this.daysStrike = this.calculateDaysStrike(datesPlayed, currentDate);
   }
+  
   
   
 

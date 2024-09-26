@@ -10,6 +10,7 @@ import { ChooseGameComponent } from './choose-game/choose-game.component';
 import { MixedLettersGameResultsComponent } from './mixed-letters-game-results/mixed-letters-game-results.component';
 import { SortedWordsGameResultsComponent } from './sorted-words-game-results/sorted-words-game-results.component';
 import { MixedLettersGameComponent } from './mixed-letters-game/mixed-letters-game.component';
+//import { SortedWordsGameComponent } from './sorted-words-game/sorted-words-game.component';
 //import { DisplaySingleWordComponent } from './matching-game-module/model/display-single-word/display-single-word.component';
 
 

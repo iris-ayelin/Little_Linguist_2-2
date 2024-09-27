@@ -76,7 +76,7 @@ export class CategoryFormComponent implements OnInit {
   }
 
   deleteWord(index: number) {
-    let extendedWordsList = Array.from(this.currentCategory.words);
+    const extendedWordsList = Array.from(this.currentCategory.words);
     extendedWordsList.splice(index, 1);
     this.currentCategory.words = extendedWordsList;
     this.wordsGroup!.control.markAsDirty();

@@ -132,7 +132,7 @@ export class DashboardComponent implements OnInit {
 
   async getGameStreak() {
     const now = new Date();
-    let currentDate = new Date(now);
+    const currentDate = new Date(now);
 
     currentDate.setDate(now.getDate() - 1);
     currentDate.setHours(0, 0, 0, 0);

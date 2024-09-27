@@ -21,7 +21,6 @@ export interface GameResult {
 })
 export class GameResultService {
   private gameResultsCollection = 'gameResults';
-  gameId: any;
 
   constructor(private firestore: Firestore) {}
 
@@ -30,7 +29,7 @@ export class GameResultService {
       collection(this.firestore, this.gameResultsCollection),
       {
         categoryId: gameResult.categoryId,
-        gameId: this.gameId,
+        gameId: gameResult.gameId,
         date: gameResult.date,
         points: gameResult.points,
       }

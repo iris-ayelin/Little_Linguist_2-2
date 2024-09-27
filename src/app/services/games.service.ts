@@ -82,6 +82,5 @@ export class GamesService {
     points: number;
   }): Promise<void> {
     await this.gameResultService.addGameResult(gameResult)
-
   }
 }

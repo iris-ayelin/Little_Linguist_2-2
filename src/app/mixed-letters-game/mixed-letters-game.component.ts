@@ -23,6 +23,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { GamesService } from '../services/games.service';
 import { Timestamp } from '@angular/fire/firestore';
 import { GameResultService } from '../services/game-result.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -47,7 +48,7 @@ import { GameResultService } from '../services/game-result.service';
 })
 export class MixedLettersGameComponent implements OnInit {
   @Input() id = ''
-  @Input() gameId = ''
+  gameId: string | null = null;
   currentCategory?: Category;
   words: { origin: string; target: string }[] = [];
   currentWordIndex = 0;
@@ -77,8 +78,15 @@ export class MixedLettersGameComponent implements OnInit {
   totalPoints?: number;
   extraPoints?: number;
 
+  constructor(private route: ActivatedRoute){}
+
   async ngOnInit(): Promise<void> {
-    console.log('gameId before adding result:', this.gameId);
+    this.route.paramMap.subscribe(params => {
+      this.gameId = params.get('id');
+      console.log('ID:', this.gameId); // Output: 1
+    });
+
+    this.gameId = String(this.gameId)
 
     if (this.id) {
       const categoryId: string = String(+this.id);
@@ -194,7 +202,7 @@ export class MixedLettersGameComponent implements OnInit {
 
     const gameResult = {
       categoryId: this.id,
-      gameId: this.gameId, 
+      gameId: this.gameId as string, 
       date: Timestamp.now(),
       points: this.coins
     };
@@ -210,6 +218,5 @@ export class MixedLettersGameComponent implements OnInit {
     this.gamesService.addGameResult(gameResult);
   
     this.router.navigate(['/mixed-letters-game-results']);
-    console.log(gameResult)
   }
 }

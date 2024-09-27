@@ -52,7 +52,7 @@ export class GameDialogComponent implements OnInit {
   letsPlay() {
     if (this.selectedCategory) {
       this.dialogRef.close();
-      this.router.navigate([`${this.data.gameUrl}`, this.selectedCategory.id]);
+      this.router.navigate([`${this.data.gameUrl}`, this.selectedCategory.id, `${this.data.gameId}`]);
     }
   }
 }

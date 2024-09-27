@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   gamesPlayedThisMonth = 0;
   remainingGamesForChallenge = 0;
   mostFrequentCategory: string | null = null;
-  mostFrequent: any;
+  mostFrequent: string = '';
   categoriesService = inject(CategoriesService);
   totalCategories = 0;
   categoriesNotLearned = 0;
@@ -72,10 +72,10 @@ export class DashboardComponent implements OnInit {
     this.perfectGamesPercentage = (perfectGames / this.gamesPlayed) * 100;
 
     const datesPlayed = gameResults.map((result) => result.date.toDate());
-    this.daysStrike = this.calculateDaysStrike(datesPlayed, currentDate);
+    this.daysStrike = this.calculateDaysStrike(datesPlayed);
   }
 
-  private calculateDaysStrike(datesPlayed: Date[], currentDate: Date): number {
+  private calculateDaysStrike(datesPlayed: Date[]): number {
     const sortedDates = datesPlayed.sort((a, b) => b.getTime() - a.getTime());
     let strikeCount = 1;
 

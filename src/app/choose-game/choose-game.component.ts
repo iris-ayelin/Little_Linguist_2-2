@@ -22,24 +22,23 @@ export class ChooseGameComponent implements OnInit {
   categoryId: string = '';
   categories: Category[] = [];
 
-
   constructor(
     private gamesService: GamesService,
     private dialog: MatDialog,
-    private categoriesService: CategoriesService, 
+    private categoriesService: CategoriesService
   ) {}
 
   openDialog(game: GameProfile): void {
     this.selectedGame = game;
 
-    const dialogRef = this.dialog.open(GameDialogComponent, {
+    this.dialog.open(GameDialogComponent, {
       width: '250px',
       data: {
         gameId: game.gameId,
-        game: this.selectedGame, 
+        game: this.selectedGame,
         gameUrl: game.gameUrl,
         categoryId: this.categoryId,
-      },     
+      },
     });
   }
 

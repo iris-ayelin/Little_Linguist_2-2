@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Category } from '../../shared/model/category';
 import {
-  addDoc,
   collection,
   deleteDoc,
   doc,

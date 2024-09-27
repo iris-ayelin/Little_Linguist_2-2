@@ -25,15 +25,12 @@ export class GameResultService {
   constructor(private firestore: Firestore) {}
 
   async addGameResult(gameResult: GameResult): Promise<void> {
-    const gameResultRef = await addDoc(
-      collection(this.firestore, this.gameResultsCollection),
-      {
-        categoryId: gameResult.categoryId,
-        gameId: gameResult.gameId,
-        date: gameResult.date,
-        points: gameResult.points,
-      }
-    );
+    await addDoc(collection(this.firestore, this.gameResultsCollection), {
+      categoryId: gameResult.categoryId,
+      gameId: gameResult.gameId,
+      date: gameResult.date,
+      points: gameResult.points,
+    });
   }
 
   async list(): Promise<GameResult[]> {
@@ -44,7 +41,7 @@ export class GameResultService {
         this.firestore,
         this.gameResultsCollection
       );
-      const newQueary = query(gameResultsRef); //where('playerId', '==', playerId));
+      const newQueary = query(gameResultsRef);
 
       const querySnapshot = await getDocs(newQueary);
       querySnapshot.forEach((doc) => {

@@ -25,7 +25,6 @@ import { Timestamp } from '@angular/fire/firestore';
 import { GameResultService } from '../services/game-result.service';
 import { ActivatedRoute } from '@angular/router';
 
-
 @Component({
   selector: 'app-mixed-letters-game',
   standalone: true,
@@ -47,7 +46,7 @@ import { ActivatedRoute } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MixedLettersGameComponent implements OnInit {
-  @Input() id = ''
+  @Input() id = '';
   gameId: string | null = null;
   currentCategory?: Category;
   words: { origin: string; target: string }[] = [];
@@ -78,20 +77,19 @@ export class MixedLettersGameComponent implements OnInit {
   totalPoints?: number;
   extraPoints?: number;
 
-  constructor(private route: ActivatedRoute){}
+  constructor(private route: ActivatedRoute) {}
 
   async ngOnInit(): Promise<void> {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       this.gameId = params.get('id');
-      console.log('ID:', this.gameId); // Output: 1
     });
 
-    this.gameId = String(this.gameId)
+    this.gameId = String(this.gameId);
 
     if (this.id) {
       const categoryId: string = String(+this.id);
       this.currentCategory = await this.categoriesService.get(categoryId);
-    
+
       if (this.currentCategory) {
         this.words = this.currentCategory.words;
         this.pointsPerWord = Math.ceil(100 / this.words.length);
@@ -99,11 +97,9 @@ export class MixedLettersGameComponent implements OnInit {
         this.extraPoints = this.totalPoints - 100;
         this.setNextWord();
       }
-      
     }
-    this.id = String(+this.id)
+    this.id = String(+this.id);
   }
-  
 
   private setNextWord(): void {
     if (this.currentWordIndex < this.words.length) {
@@ -194,7 +190,7 @@ export class MixedLettersGameComponent implements OnInit {
   }
 
   navWithResultData(): void {
-    if (this.coins > 100){
+    if (this.coins > 100) {
       this.coins = 100;
     } else {
       this.coins;
@@ -202,11 +198,11 @@ export class MixedLettersGameComponent implements OnInit {
 
     const gameResult = {
       categoryId: this.id,
-      gameId: this.gameId as string, 
+      gameId: this.gameId as string,
       date: Timestamp.now(),
-      points: this.coins
+      points: this.coins,
     };
-  
+
     this.gamesService.setResults(
       this.currentCategory?.id || '',
       this.wordResults,
@@ -214,9 +210,9 @@ export class MixedLettersGameComponent implements OnInit {
       this.incorrectGuesses,
       this.coins
     );
-  
+
     this.gamesService.addGameResult(gameResult);
-  
+
     this.router.navigate(['/mixed-letters-game-results']);
   }
 }

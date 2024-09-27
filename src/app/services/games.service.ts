@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GameProfile } from '../../shared/model/games';
-import { GameResultService } from './game-result.service'; // Import GameResultService
-import { Timestamp } from '@firebase/firestore'; // Ensure Timestamp is imported for Firestore
+import { GameResultService } from './game-result.service';
+import { Timestamp } from '@firebase/firestore';
 
 interface WordResult {
   hebrewWord: string;

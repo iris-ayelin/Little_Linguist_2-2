@@ -47,7 +47,6 @@ export class DashboardComponent implements OnInit {
   private async calculateMetrics(gameResults: GameResult[]): Promise<void> {
     if (!gameResults.length) return;
 
-    const currentDate = Timestamp.now().toDate();
     this.gamesPlayed = gameResults.length;
     this.points = gameResults.reduce((sum, result) => sum + result.points, 0);
 
